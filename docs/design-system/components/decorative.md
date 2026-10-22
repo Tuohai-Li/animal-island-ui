@@ -2,25 +2,23 @@
 
 Exact values for the scene-setting pieces that carry the island theme: Time, Phone, Footer and Wallet.
 
-## Footer (copyright bar)
+## Footer
 
-A copyright bar that renders `© {year} {text}` — the year is fetched dynamically (current year), and the text defaults to `All Rights Reserved.`.
+Default `tree` restores the historical 80px tree artwork with bottom-aligned cover sizing. `sea` restores the local coastline SVG. Both are decorative divs. `type="copyright"` retains the semantic copyright footer; explicitly supplying text/year also selects that mode unless a type is specified.
 
 ```tsx
-<Footer />                  // © 2026 All Rights Reserved.
-<Footer text="Acme Ltd." /> // custom text
-<Footer text="Acme" year={2020} />
-```
-
-```less
-.footer {
-    color: #807d75;
-    font-size: 12px;
-    padding: 16px 0;
-    text-align: center;
+export type FooterType = 'sea' | 'tree' | 'copyright';
+export interface FooterProps {
+    /** 经典海岸、树林，或版权栏 */
+    type?: FooterType;
+    /** 版权文案，默认 `All Rights Reserved.` */
+    text?: string;
+    /** 年份，默认取当前年份（动态获取） */
+    year?: number;
+    /** 自定义类名 */
+    className?: string;
+    /** 自定义样式 */
+    style?: React.CSSProperties;
 }
 ```
-
-- The `year` defaults to the current year (`new Date().getFullYear()`); pass `year` to override it. The `text` replaces `All Rights Reserved.`.
-- Styling is fully overridable via `style` / `className`.
 

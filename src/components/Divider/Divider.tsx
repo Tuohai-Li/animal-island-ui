@@ -1,14 +1,25 @@
 import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import styles from './divider.module.less';
+import { Icon, type IconName } from '../Icon';
 
-export type DividerType = 'dashed-brown' | 'thin' | 'hairline' | 'wave-yellow' | 'squiggle';
+export type DividerType =
+    | 'line-brown'
+    | 'line-teal'
+    | 'line-white'
+    | 'line-yellow'
+    | 'zigzag'
+    | 'dashed-brown'
+    | 'thin'
+    | 'hairline'
+    | 'wave-yellow'
+    | 'squiggle';
 
 export interface DividerProps {
     /** 分隔线类型（type 与 icon 二选一，icon 优先） */
     type?: DividerType;
     /** 传入图标元素（来自 naive-icons，如 `<FishIcon size={24} />`）；传入时渲染「图标 + 连接线」循环相连的装饰分割线，铺满整行 */
-    icon?: React.ReactNode;
+    icon?: React.ReactNode | IconName;
     /** 图标大小（px），同 Icon 默认 24 */
     iconSize?: number;
     /** 图标间距（px），即相邻图标之间的连接线长度，默认 8（紧密相连） */
@@ -20,7 +31,7 @@ export interface DividerProps {
 }
 
 export const Divider: React.FC<DividerProps> = ({
-    type = 'dashed-brown',
+    type = 'line-brown',
     icon,
     iconSize = 24,
     iconGap = 8,
@@ -53,7 +64,7 @@ export const Divider: React.FC<DividerProps> = ({
             <div ref={ref} className={classNames(styles.iconDivider, className)} style={style} aria-hidden="true">
                 {Array.from({ length: cycles }).map((_, c) => (
                     <div key={c} className={styles.iconCycle} {...(c > 0 ? { 'aria-hidden': true } : {})}>
-                        {icon}
+                        {typeof icon === 'string' ? <Icon name={icon as IconName} size={iconSize} /> : icon}
                         {c < cycles - 1 && (
                             <span className={styles.iconGap} style={{ width: iconGap }}>
                                 <span className={styles.iconLine} />

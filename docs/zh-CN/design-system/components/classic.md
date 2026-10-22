@@ -1,7 +1,7 @@
 # 经典组件
 
 这些组件在 v2.3.0 基础上恢复历史外观。来源和素材权利说明见
-[CLASSIC-NOTICE.md](../../../../CLASSIC-NOTICE.md)。Time 与 Loading 沿用最新版实现。
+[CLASSIC-NOTICE.md](../../../../CLASSIC-NOTICE.md)。Time 与 Loading 已恢复历史外观。
 
 ## Phone
 

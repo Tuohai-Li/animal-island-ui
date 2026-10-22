@@ -15,15 +15,14 @@ const FooterDemo: React.FC = () => {
     return (
         <div style={sectionStyle}>
             <div style={sectionTitleStyle}>
-                Footer <DemoTag>版权栏</DemoTag>
+                Footer <DemoTag>树林与海岸</DemoTag>
             </div>
-            <div style={labelStyle}>
-                Footer 版权栏 — 默认展示 © 当前年份 All Rights Reserved.，年份动态获取、文案可传参自定义。
-            </div>
+            <div style={labelStyle}>Footer 默认展示经典树林装饰；sea 展示海岸，copyright 保留版权栏。</div>
 
             <div style={labelStyle}>默认</div>
             <div style={demoBodyStyle}>
                 <FooterComponent />
+                <FooterComponent type="sea" />
             </div>
 
             <div style={labelStyle}>自定义文案</div>
@@ -54,6 +53,7 @@ const App = () => (
 };
 
 const FOOTER_API: ApiRow[] = [
+    { prop: 'type', desc: '页脚类型', type: "'tree' | 'sea' | 'copyright'", defaultVal: "'tree'" },
     { prop: 'text', desc: '版权文案，默认 All Rights Reserved.', type: 'string', defaultVal: "'All Rights Reserved.'" },
     { prop: 'year', desc: '年份，默认取当前年份（动态获取）', type: 'number', defaultVal: '-' },
     { prop: 'className', desc: '自定义类名', type: 'string', defaultVal: '-' },

@@ -1,6 +1,10 @@
 // 独立的轻量页面元信息，供 App 等场景静态导入，避免拉入整个 ComponentPage bundle
 export const PAGE_INFO: Record<string, { title: string; desc: string }> = {
-    classic: { title: '经典组件回归', desc: 'v2.3.0 + Phone、Wallet、WeddingInvitation，重新遇见小岛的老朋友。' },
+    classic: { title: '经典组件回归', desc: '五个经典组件、内置图片图标、历史装饰素材，一起回到小岛。' },
+    materials: {
+        title: '经典图标与装饰',
+        desc: '488 个物品图标、应用图标、位图返回顶部、分割线、树林海岸与经典光标。',
+    },
     phone: { title: 'Phone 小岛手机', desc: '经典九宫格手机，实时时钟、键盘操作和应用点击回调。' },
     wallet: { title: 'Wallet 钱袋', desc: '经典钱袋，支持三种尺寸、千分位和自定义货币图标。' },
     wedding: { title: 'WeddingInvitation 婚礼请柬', desc: '实时编辑婚礼请柬，切换抽奖券并保存为 PNG 图片。' },
@@ -26,7 +30,7 @@ export const PAGE_INFO: Record<string, { title: string; desc: string }> = {
     },
     cursor: {
         title: 'Cursor 光标',
-        desc: '光标组件 — 自定义手指光标，支持自定义尺寸、点击动画',
+        desc: '光标组件 — 恢复历史手形 PNG，保留作用域和雨滴样式选项',
     },
     footer: {
         title: 'Footer 底部装饰',
@@ -54,7 +58,7 @@ export const PAGE_INFO: Record<string, { title: string; desc: string }> = {
     },
     icon: {
         title: 'Icon 图标',
-        desc: '图标组件 — naive-icons 手绘 SVG 图标库，125 个可爱图标，支持自定义尺寸与描边颜色。全部图标为原创作品，个人与商业项目均可自由使用。',
+        desc: '经典 Icon 组件 — 10 个内置应用图片与 488 个物品位图，支持搜索编号、尺寸和悬停弹跳。',
     },
     select: {
         title: 'Select 选择器',

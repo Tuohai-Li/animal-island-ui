@@ -2,7 +2,7 @@
 
 These components restore historical presentation on top of v2.3.0. Provenance and
 asset rights are documented in [CLASSIC-NOTICE.md](../../../CLASSIC-NOTICE.md).
-The existing Time and Loading implementations remain current.
+Time and Loading now use the recovered historical presentation.
 
 ## Phone
 

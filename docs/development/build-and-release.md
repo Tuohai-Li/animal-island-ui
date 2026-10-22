@@ -58,3 +58,7 @@ with an error if the coverage summary is missing.
 
 `npm run build:demo` builds the demo into `demo-dist/` using `vite.config.demo.ts`; `npm run deploy` chains that with
 `gh-pages -d demo-dist` to publish it. The demo is never part of the npm artifact.
+
+## Historical item entry points
+
+The restoration build copies all recovered item PNGs into `dist/items/` so the existing `./items/*` package export and `items.d.ts` resolve. Icon also uses hashed files under `dist/files/`; neither path depends on a remote server.

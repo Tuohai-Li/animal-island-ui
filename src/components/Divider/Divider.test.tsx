@@ -5,6 +5,19 @@ import { FishIcon } from 'naive-icons';
 import styles from './divider.module.less';
 
 describe('Divider', () => {
+    it('默认恢复棕色素材，接受旧版颜色及位图锯齿线', () => {
+        const { container, rerender } = render(<Divider />);
+        expect(container.firstChild).toHaveClass(styles['line-brown']);
+        for (const type of ['line-teal', 'line-white', 'line-yellow', 'zigzag'] as const) {
+            rerender(<Divider type={type} />);
+            expect(container.firstChild).toHaveClass(styles[type]);
+        }
+    });
+
+    it('旧版字符串图标名称可渲染为图片分割线', () => {
+        const { container } = render(<Divider icon="icon-camera" />);
+        expect(container.querySelector('[class*="icon-camera"]')).toBeInTheDocument();
+    });
     it('默认 type=dashed-brown：仅应用基础 divider 类（dashed-brown 由默认背景实现）', () => {
         const { container } = render(<Divider />);
         const root = container.firstChild as HTMLElement;

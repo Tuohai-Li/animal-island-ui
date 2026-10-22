@@ -12,10 +12,16 @@ import {
 } from '../../tools';
 
 const LOADING_API: ApiRow[] = [
-    { prop: 'active', desc: 'true / false 控制开启关闭；false 时落雪渐变消失', type: 'boolean', defaultVal: 'true' },
-    { prop: 'tip', desc: '落雪中央提示文字', type: 'ReactNode', defaultVal: '-' },
+    { prop: 'variant', desc: '经典小岛或雪花', type: "'island' | 'snow'", defaultVal: "'island'" },
+    {
+        prop: 'active',
+        desc: 'true / false 控制开启关闭；false 时小岛动画扩圆退场',
+        type: 'boolean',
+        defaultVal: 'true',
+    },
+    { prop: 'tip', desc: '小岛动画中央提示文字', type: 'ReactNode', defaultVal: '-' },
     { prop: 'delay', desc: '延迟显示时间（毫秒），避免加载快速结束时闪烁', type: 'number', defaultVal: '0' },
-    { prop: 'fadeDuration', desc: '渐变消失时长（秒）', type: 'number', defaultVal: '0.6' },
+    { prop: 'fadeDuration', desc: '扩圆退场时长（秒）', type: 'number', defaultVal: '0.6' },
     { prop: 'zIndex', desc: '全屏层级（默认 3000，高于 Notification 的 2000）', type: 'number', defaultVal: '3000' },
     { prop: 'className / style / aria-*', desc: '透传到根元素', type: '-', defaultVal: '-' },
 ];
@@ -28,7 +34,7 @@ const LoadingDemo: React.FC = () => {
 
     useEffect(() => () => window.clearTimeout(timerRef.current), []);
 
-    // 播放一次：2.4s 后自动关闭，随后落雪渐变消失
+    // 播放一次：2.4s 后自动关闭，随后小岛动画扩圆退场
     const play = (opts?: { tip?: string; delay?: number }) => {
         window.clearTimeout(timerRef.current);
         setTip(opts?.tip);
@@ -40,19 +46,19 @@ const LoadingDemo: React.FC = () => {
     return (
         <div style={sectionStyle}>
             <div style={sectionTitleStyle}>
-                Loading <DemoTag>全屏落雪</DemoTag> <DemoTag>渐变消失</DemoTag>
+                Loading <DemoTag>经典小岛</DemoTag> <DemoTag>扩圆退场</DemoTag>
             </div>
             <div style={demoBodyStyle}>
-                <div style={labelStyle}>基础播放 — 点击后全屏落雪覆盖 2.4s，结束时渐变消失</div>
+                <div style={labelStyle}>基础播放 — 点击后经典小岛覆盖 2.4s，结束时扩圆退场</div>
                 <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginBottom: 20 }}>
-                    <Button onClick={() => play()}>纯落雪</Button>
+                    <Button onClick={() => play()}>经典小岛</Button>
                     <Button onClick={() => play({ tip: '正在连接岛屿…' })}>带提示文字</Button>
-                    <Button onClick={() => play({ tip: '等雪停…', delay: 300 })}>delay 300ms</Button>
-                    <Button onClick={() => play({ tip: '慢速渐隐' })}>fadeDuration 1.2s</Button>
+                    <Button onClick={() => play({ tip: '准备小岛…', delay: 300 })}>delay 300ms</Button>
+                    <Button onClick={() => play({ tip: '慢速退场' })}>fadeDuration 1.2s</Button>
                 </div>
 
                 <div style={labelStyle}>
-                    delay 防闪烁 — 快速结束时（600ms 模拟加载）无 delay 的落雪会闪一下，delay 300ms 的几乎不出现
+                    delay 防闪烁 — 快速结束时（600ms 模拟加载）无 delay 的小岛动画会闪一下，delay 300ms 的几乎不出现
                 </div>
                 <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginBottom: 20 }}>
                     <Button
@@ -83,16 +89,16 @@ const LoadingDemo: React.FC = () => {
             <CodeBlock
                 code={`import { Loading } from 'animal-island-ui';
 
-// active 受控：true 开启落雪，false 渐变消失
+// active 受控：true 开启小岛动画，false 扩圆退场
 <Loading active={active} />
 
 // 中央提示文字
 <Loading active={active} tip="正在连接岛屿…" />
 
-// 延迟显示：加载快速结束时避免落雪闪烁
+// 延迟显示：加载快速结束时避免小岛动画闪烁
 <Loading active={active} delay={300} />
 
-// 慢速渐隐 + 自定义层级
+// 慢速退场 + 自定义层级
 <Loading active={active} fadeDuration={1.2} zIndex={5000} />`}
             />
             <ApiTable rows={LOADING_API} />
@@ -101,7 +107,7 @@ const LoadingDemo: React.FC = () => {
                 active={active}
                 tip={tip}
                 delay={delay}
-                fadeDuration={tip === '慢速渐隐' ? 1.2 : 0.6}
+                fadeDuration={tip === '慢速退场' ? 1.2 : 0.6}
                 zIndex={3000}
             />
         </div>

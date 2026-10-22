@@ -13,6 +13,7 @@ import {
     type WeddingInvitationRef,
 } from '../src';
 import styles from './classic-preview.module.less';
+import ClassicMaterials from './ClassicMaterials';
 
 const APP_NAMES: Record<string, string> = {
     camera: '相机',
@@ -138,14 +139,17 @@ function TimeAndLoadingDemo() {
             <div className={styles.heading}>
                 <SnowflakeIcon size={22} />
                 <h2>Time & Loading</h2>
-                <span>沿用最新版</span>
+                <span>经典外观</span>
             </div>
-            <p className={styles.caption}>时钟照常滴答，雪花轻轻落下。</p>
+            <p className={styles.caption}>旧版横向时钟与浮动小岛加载动画，重新回到小岛。</p>
             <div className={styles.clockStage}>
                 <Time locale="zh-cn" />
             </div>
+            <div style={{ position: 'relative', height: 240, borderRadius: 16, overflow: 'hidden', marginBottom: 18 }}>
+                <Loading active style={{ position: 'absolute' }} />
+            </div>
             <Button block onClick={() => setLoading(true)}>
-                看看落雪加载效果
+                看看小岛加载与退场效果
             </Button>
             <Loading active={loading} tip="正在准备小岛的惊喜…" fadeDuration={0.3} />
         </section>
@@ -160,9 +164,10 @@ export default function ClassicPreview() {
                     <LeafIcon size={16} /> ANIMAL ISLAND · CLASSIC COLLECTION
                 </span>
                 <h1>久违了，小岛的老朋友。</h1>
-                <p>在 v2.3.0 的小岛上，重新遇见手机、钱袋和婚礼请柬。</p>
+                <p>手机、钱袋、时钟、加载动画和婚礼请柬，还有熟悉的图标与装饰素材。</p>
                 <div className={styles.chips}>
-                    <span>3 个经典组件回归</span>
+                    <span>5 个经典组件回归</span>
+                    <span>488 个物品图标</span>
                     <span>实时编辑与互动</span>
                     <span>支持保存请柬</span>
                 </div>
@@ -176,6 +181,9 @@ export default function ClassicPreview() {
                 <div className={styles.column}>
                     <WeddingDemo />
                 </div>
+            </div>
+            <div style={{ marginTop: 24 }}>
+                <ClassicMaterials />
             </div>
         </div>
     );

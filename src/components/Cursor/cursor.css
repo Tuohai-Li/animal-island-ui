@@ -104,3 +104,13 @@
 .animal-cursor--scoped [aria-disabled='true'] {
     cursor: not-allowed !important;
 }
+.animal-cursor {
+    --animal-classic-cursor: url('../../assets/img/cursor/cursor-icon.png') 4 0, auto;
+}
+.animal-cursor--force:not(.animal-cursor--raindrop),
+.animal-cursor--force:not(.animal-cursor--raindrop) * {
+    cursor: var(--animal-classic-cursor) !important;
+}
+.animal-cursor--scoped:not(.animal-cursor--raindrop) {
+    cursor: var(--animal-classic-cursor);
+}

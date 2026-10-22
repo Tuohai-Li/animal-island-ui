@@ -58,6 +58,7 @@ const MENU_ITEMS: MenuItem[] = [
         label: '── 经典回归 ──',
         children: [
             { key: 'classic', label: '经典组件总览', isNew: true },
+            { key: 'materials', label: '经典图标与装饰', isNew: true },
             { key: 'phone', label: 'Phone 小岛手机' },
             { key: 'wallet', label: 'Wallet 钱袋' },
             { key: 'wedding', label: 'WeddingInvitation 请柬' },

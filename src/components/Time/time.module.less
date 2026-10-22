@@ -1,25 +1,25 @@
-// 实时时钟卡片：无边框软影面板 + 主色日期胶囊，纵向排布与库内 Countdown / Tag 同一设计语言
+// 经典横向时钟：日期在左，数字在右。
 .time {
     display: inline-flex;
-    flex-direction: column;
+    flex-direction: row-reverse;
     align-items: center;
-    gap: var(--animal-spacing-md, 12px);
+    gap: 20px;
     box-sizing: border-box;
     width: fit-content;
-    padding: 20px 32px 15px 32px;
-    border-radius: 20px;
-    background: var(--animal-bg-color, #fff);
-    box-shadow: var(--animal-shadow-sm, 0 2px 4px rgba(61, 52, 40, 0.06));
+    padding: 16px 36px;
+    border: 3px solid #d4cfc3;
+    border-radius: 18px;
+    background: linear-gradient(180deg, #fff 0%, #f8f8f0 100%);
     font-family: var(--animal-font-family, 'Nunito', 'Noto Sans SC');
     animation: animal-time-fade-in var(--animal-motion-duration-slow, 0.35s)
         var(--animal-motion-ease, cubic-bezier(0.4, 0, 0.2, 1));
 }
 
-// 上方时钟：HH:MM，等宽数字；数字与冒号处于同一文本行，由字体基线统一渲染
+// 右侧时钟：HH:MM，等宽数字；数字与冒号处于同一文本行，由字体基线统一渲染
 .clock {
-    color: var(--animal-text-color, #794f27);
+    color: #8b7355;
     font-weight: 900;
-    font-size: 44px;
+    font-size: 48px;
     font-variant-numeric: tabular-nums;
     letter-spacing: 1px;
     line-height: 1;
@@ -34,14 +34,14 @@
     animation: animal-time-blink 1s step-end infinite;
 }
 
-// 下方日期胶囊：主色底圆角胶囊，星期 · 月日
+// 左侧日期：星期与月日纵向排列。
 .date {
     display: inline-flex;
     align-items: center;
-    gap: var(--animal-spacing-xs, 4px);
-    padding: 4px 14px;
-    border-radius: 999px;
-    background: var(--animal-primary-color-bg, #e6f9f6);
+    flex-direction: column;
+    gap: 0;
+    padding: 0 24px 0 0;
+    border-right: 3px solid rgba(159, 146, 125, 0.35);
     font-size: var(--animal-font-size-sm, 12px);
     font-weight: 700;
     color: var(--animal-text-color-secondary, #9f927d);
@@ -49,18 +49,47 @@
 }
 
 .weekday {
-    color: var(--animal-primary-color, #19c8b9);
-    font-weight: 800;
+    color: #6fba2c;
+    font-size: 14px;
+    font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
 .dot {
-    color: var(--animal-text-color-disabled, #c4b89e);
+    display: none;
 }
 
 .monthDay {
     font-variant-numeric: tabular-nums;
+    font-size: 22px;
+    font-weight: 800;
+    color: #8b7355;
+}
+
+@media (max-width: 768px) {
+    .time {
+        padding: 12px 20px;
+        gap: 12px;
+    }
+    .date {
+        padding-right: 12px;
+    }
+    .weekday {
+        font-size: 11px;
+    }
+    .monthDay {
+        font-size: 16px;
+    }
+    .clock {
+        font-size: 32px;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .time,
+    .colon {
+        animation: none;
+    }
 }
 
 @keyframes animal-time-fade-in {

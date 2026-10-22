@@ -1,4 +1,4 @@
-> **Classic restoration fork:** Phone, Wallet and WeddingInvitation are restored on v2.3.0. Run the demo at `#/classic`. See [source and asset notices](CLASSIC-NOTICE.md).
+> **Classic restoration fork:** Phone, Wallet, Time, Loading, WeddingInvitation and historical image assets are restored on v2.3.0. Run the demo at `#/classic`. See [source and asset notices](CLASSIC-NOTICE.md).
 
 # Animal-Island-UI
 
@@ -20,7 +20,7 @@ A cozy React UI component library
     <a href="https://atomgit.com/guokaigdg/animal-island-ui"><img alt="AtomGit Star" src="https://atomgit.com/guokaigdg/animal-island-ui/star/badge.svg"></a>
     <br/>
     <a href="./coverage/badges/coverage.json"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/guokaigdg/animal-island-ui/main/coverage/badges/coverage.json&style=flat-square" alt="Coverage"></a>
-    <img src="https://img.shields.io/badge/components-43-blue?style=flat-square" alt="Components">
+    <img src="https://img.shields.io/badge/components-44-blue?style=flat-square" alt="Components">
     <img src="https://img.shields.io/badge/a11y-WAI--ARIA%20APG-brightgreen?style=flat-square" alt="Accessibility">
 </div>
 <br/>

@@ -15,10 +15,11 @@ The core of the design language: **warm earth-tone palette + large-radius pill s
 
 ## Full export inventory
 
-43 components, all exported from `src/index.ts` (including the `FormItem` / `useForm` companion exports):
+44 components, all exported from `src/index.ts` (including the `FormItem` / `useForm` companion exports):
 
 | Component      | Responsibility                                                                                                                                                                                    | Interactive | Decorative / display-only |
 | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | ------------------------- |
+| `Icon` | Ten named application images and 488 local item PNGs | | ✓ |
 | `Phone` | Historical phone screen with keyboard-accessible app buttons | ✓ | |
 | `Wallet` | Historical pouch balance display, three sizes | | ✓ |
 | `WeddingInvitation` | Customizable historical invitation with PNG export | ✓ | |

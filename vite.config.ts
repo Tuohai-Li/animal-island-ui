@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 import libAssetsPlugin from '@laynezh/vite-plugin-lib-assets';
 import { resolve, dirname, join, posix } from 'path';
 import { fileURLToPath } from 'url';
-import { readdirSync, rmdirSync, statSync, unlinkSync, readFileSync, writeFileSync } from 'fs';
+import { cpSync, readdirSync, rmdirSync, statSync, unlinkSync, readFileSync, writeFileSync } from 'fs';
 import type { PreRenderedAsset } from 'rollup';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -279,6 +279,15 @@ function emitGlobalStyleEntryPlugin(): Plugin {
 export default defineConfig({
     plugins: [
         react(),
+        {
+            name: 'copy-historical-item-entrypoints',
+            apply: 'build',
+            closeBundle() {
+                cpSync(resolve(__dirname, 'src/assets/img/icons/items'), resolve(__dirname, 'dist/items'), {
+                    recursive: true,
+                });
+            },
+        },
         stripWoffFallbackPlugin(),
         // lib 模式下 Vite 会强制内联所有资源，本插件绕过该限制，把字体/图片等作为独立文件输出
         libAssetsPlugin({

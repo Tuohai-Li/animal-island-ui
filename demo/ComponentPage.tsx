@@ -44,6 +44,7 @@ import CarouselDemo from './components/Carousel';
 import SkillDemo from './components/Skill';
 import { PAGE_INFO } from './pageInfo';
 import ClassicPreview, { PhoneDemo, WalletDemo, WeddingDemo } from './ClassicPreview';
+import ClassicMaterials from './ClassicMaterials';
 const pageDescStyle: React.CSSProperties = {
     fontSize: 14,
     color: '#794f27',
@@ -56,6 +57,7 @@ const pageDescStyle: React.CSSProperties = {
 
 const PAGES: Record<string, React.FC> = {
     classic: ClassicPreview,
+    materials: ClassicMaterials,
     phone: PhoneDemo,
     wallet: WalletDemo,
     wedding: WeddingDemo,

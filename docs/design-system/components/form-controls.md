@@ -632,3 +632,5 @@ is its own circle.
 the old range highlight gives way: hovering a later date highlights `[start, hover]` with the hovered date as the
 pending end; hovering an earlier date highlights `[hover, start]` in reverse, marking the hovered date as the new
 pending start (clicking it resets the start). This follows the mainstream range-picker interaction model.
+
+The restored Select hover pointer uses the local historical `select-cursor.svg` hand at 35 × 35px.

@@ -4,22 +4,23 @@ Props/types below are copied from the library source. In an npm-installed projec
 
 ## Footer
 
-```ts
-interface FooterProps {
-    text?: string; // copyright text — default 'All Rights Reserved.'
-    year?: number; // year — default current year (dynamically fetched)
+Default `tree` restores the historical 80px tree artwork with bottom-aligned cover sizing. `sea` restores the local coastline SVG. Both are decorative divs. `type="copyright"` retains the semantic copyright footer; explicitly supplying text/year also selects that mode unless a type is specified.
+
+```tsx
+export type FooterType = 'sea' | 'tree' | 'copyright';
+export interface FooterProps {
+    /** 经典海岸、树林，或版权栏 */
+    type?: FooterType;
+    /** 版权文案，默认 `All Rights Reserved.` */
+    text?: string;
+    /** 年份，默认取当前年份（动态获取） */
+    year?: number;
+    /** 自定义类名 */
     className?: string;
+    /** 自定义样式 */
     style?: React.CSSProperties;
 }
 ```
-
-```tsx
-<Footer />                   {/* © 2026 All Rights Reserved. */}
-<Footer text="Acme Ltd." />  {/* custom text */}
-<Footer text="Acme" year={2020} /> {/* custom year */}
-```
-
-Renders a copyright bar `© {year} {text}`, centered, `color: #807d75`, `font-size: 12px`, `padding: 16px 0`. The `year` defaults to the current year; the `text` defaults to `All Rights Reserved.`. Both are overridable, and styling can be customized via `style` / `className`.
 
 ## Background
 

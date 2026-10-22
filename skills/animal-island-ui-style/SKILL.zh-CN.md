@@ -9,7 +9,7 @@
 
 ## 正文对照
 
-animal-island-ui 是采用原创治愈系海岛风格设计的 React + TypeScript 组件库 —— 40 个组件、两个运行时依赖（`naive-icons` 图标、`dayjs` 日期）、MIT License
+animal-island-ui 是采用原创治愈系海岛风格设计的 React + TypeScript 组件库 —— 44 个组件、两个运行时依赖（`naive-icons` 图标、`dayjs` 日期）、MIT License
 
 源码与设计规范定义：https://github.com/guokaigdg/animal-island-ui
 
@@ -60,6 +60,7 @@ props 参考按大类分组在 `references/components/` 下（props、合法取�
 | 数据展示 | Table, CodeBlock, Tag, Badge, Pagination | [data-display.md](references/components/data-display.md) |
 | 日历 | Calendar | [calendar.md](references/components/calendar.md) |
 | 计分滚动 | CountUp | [CountUp.md](references/components/CountUp.md) |
+| 经典回归 | Phone, Wallet, WeddingInvitation | [classic.md](references/components/classic.md) |
 | 媒体 | Image, Avatar, Carousel | [media.md](references/components/media.md) |
 | 装饰 | Footer, Divider, Cursor, Typewriter, Background | [decorative.md](references/components/decorative.md) |
 
@@ -79,3 +80,5 @@ props 参考按大类分组在 `references/components/` 下（props、合法取�
 12. 优先用库组件而非裸 HTML：可见 UI 不允许原生 `<button>`、`<input>`、`<select>`、原生 checkbox/radio
 13. 只从包根和 `animal-island-ui/style` 导入，不做深路径导入
 14. 自定义元素用 `var(--animal-*)` token 上色，不硬编码颜色；不用 `className`/`style` 覆盖组件的颜色、圆角、阴影
+
+历史图片图标：[historical-assets.md](references/components/historical-assets.md)。

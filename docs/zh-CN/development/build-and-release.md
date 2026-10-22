@@ -32,3 +32,7 @@
 ## Demo 站点
 
 `npm run build:demo` 用 `vite.config.demo.ts` 把 demo 构建到 `demo-dist/`；`npm run deploy` 在此之后接上 `gh-pages -d demo-dist` 发布。demo 永远不进 npm 产物。
+
+## 历史物品图片入口
+
+恢复构建会将全部找回的物品 PNG 复制到 `dist/items/`，使既有 `./items/*` 包导出与 `items.d.ts` 能正确解析。Icon 还使用 `dist/files/` 下带哈希的资源，两种入口均不依赖远程服务器。

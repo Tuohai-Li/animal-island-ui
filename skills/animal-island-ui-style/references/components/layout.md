@@ -65,34 +65,25 @@ Renders an island-style ribbon banner (swallowtail clip-path ends + fold-shadow 
 
 ## Divider
 
-```ts
-type DividerType =
-    | 'dashed-brown'
-    | 'thin'
-    | 'hairline'
-    | 'wave-yellow'
-    | 'squiggle';
+Default `line-brown` restores the historical image. `line-teal`, `line-white`, `line-yellow` and `wave-yellow` load recovered local assets; `zigzag` uses the recovered divider_line.png bitmap. Height is 12px (wave 14px). The modern thin/hairline/dashed/squiggle options remain accepted. `icon` accepts a historical icon name as well as a React element; string names render through the restored Icon component.
 
-interface DividerProps {
-    type?: DividerType; // default 'dashed-brown'
-    icon?: IconComponent; // single-icon connected divider, a React icon component (wins over type)
-    iconSize?: number;  // default 24
-    iconGap?: number;   // gap width holding a centered 4x2px connector, default 8
+```tsx
+export type DividerType = 'line-brown' | 'line-teal' | 'line-white' | 'line-yellow' | 'zigzag' | 'dashed-brown' | 'thin' | 'hairline' | 'wave-yellow' | 'squiggle';
+export interface DividerProps {
+    /** 分隔线类型（type 与 icon 二选一，icon 优先） */
+    type?: DividerType;
+    /** 传入图标元素（来自 naive-icons，如 `<FishIcon size={24} />`）；传入时渲染「图标 + 连接线」循环相连的装饰分割线，铺满整行 */
+    icon?: React.ReactNode | IconName;
+    /** 图标大小（px），同 Icon 默认 24 */
+    iconSize?: number;
+    /** 图标间距（px），即相邻图标之间的连接线长度，默认 8（紧密相连） */
+    iconGap?: number;
+    /** 自定义类名 */
     className?: string;
+    /** 自定义样式 */
     style?: React.CSSProperties;
 }
 ```
-
-```tsx
-<Divider />
-<Divider type="thin" />      // 1px solid hairline, #e8dec7
-<Divider type="hairline" />  // 1px dense dashed, #d5c3a2
-<Divider type="wave-yellow" /> // yellow wavy line, #f5d04a
-<Divider type="squiggle" />    // theme-teal squiggle, seamless tiled, #19c8b9
-<Divider icon="Fish" />        // icon + centered connector, tiled to fill width
-```
-
-Height 12px. Purely decorative dashed rule drawn with `linear-gradient` (12px rhythm, 50% on / 50% off) — no image assets. `thin` is a 1px solid rule in `#e8dec7` (height 1px); `hairline` is a 1px dense dashed rule in `#d5c3a2` (6px rhythm); `wave-yellow` is a yellow (#f5d04a) repeating wavy line (40px period, ±7px amplitude, round line-cap); `squiggle` is a theme-teal (#19c8b9) squiggle tiled at a fixed 120px width (`repeat-x`, viewBox 0 0 120 10) whose ends meet at the same height with a horizontal tangent, so tiles join seamlessly without stretching. When `icon` is set, renders a single-icon connected divider (Footer-style tiling, `aria-hidden`): `[icon][gap]` units repeat to fill the width, sized by `iconSize` (default 24) / `iconGap` (default 8), each gap holding a short 4×2px brown connector centered between the two icons; the last icon ends the row without a trailing connector, so both ends are icons. Cycle count recalculated on resize via `ResizeObserver`. No `orientation` / `dashed` / `plain` / children — for a vertical separator, use a CSS `border-left` on adjacent elements.
 
 ## Collapse
 

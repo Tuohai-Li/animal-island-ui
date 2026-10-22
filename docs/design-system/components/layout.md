@@ -202,18 +202,25 @@ Example:
 
 ## Divider
 
+Default `line-brown` restores the historical image. `line-teal`, `line-white`, `line-yellow` and `wave-yellow` load recovered local assets; `zigzag` uses the recovered divider_line.png bitmap. Height is 12px (wave 14px). The modern thin/hairline/dashed/squiggle options remain accepted. `icon` accepts a historical icon name as well as a React element; string names render through the restored Icon component.
+
 ```tsx
-<Divider type="dashed-brown" />  // default
-<Divider type="thin" />        // 1px solid #e8dec7
-<Divider type="hairline" />    // 1px dense-dashed #d5c3a2
-<Divider type="wave-yellow" /> // yellow wavy line, #f5d04a
-<Divider type="squiggle" />    // theme-teal seamless squiggle, #19c8b9
-<Divider icon={FishIcon} />  // single-icon connected divider
+export type DividerType = 'line-brown' | 'line-teal' | 'line-white' | 'line-yellow' | 'zigzag' | 'dashed-brown' | 'thin' | 'hairline' | 'wave-yellow' | 'squiggle';
+export interface DividerProps {
+    /** 分隔线类型（type 与 icon 二选一，icon 优先） */
+    type?: DividerType;
+    /** 传入图标元素（来自 naive-icons，如 `<FishIcon size={24} />`）；传入时渲染「图标 + 连接线」循环相连的装饰分割线，铺满整行 */
+    icon?: React.ReactNode | IconName;
+    /** 图标大小（px），同 Icon 默认 24 */
+    iconSize?: number;
+    /** 图标间距（px），即相邻图标之间的连接线长度，默认 8（紧密相连） */
+    iconGap?: number;
+    /** 自定义类名 */
+    className?: string;
+    /** 自定义样式 */
+    style?: React.CSSProperties;
+}
 ```
-
-Pure CSS, no image assets: `dashed-*` types draw a 2px dashed rule via `linear-gradient` (12px rhythm, 50% on / 50% off); `thin` is a 1px solid hairline in `#e8dec7`; `hairline` is a 1px dense dashed rule in `#d5c3a2` (6px rhythm); `wave-yellow` draws a yellow (#f5d04a) repeating wavy line via an inline SVG data-URI (40px period, ±7px amplitude, round line-cap); `squiggle` draws a theme-teal (#19c8b9) squiggle tiled at a fixed 120px width (`repeat-x`, viewBox 0 0 120 10). Its ends meet at the same height with a horizontal tangent, so tiles join seamlessly without stretching as the container widens.
-
-When `icon` is set (an SVG component, e.g. `FishIcon`), the divider switches to icon-connected mode (same tiling idea as the old Footer icon chain): a `flex` row repeats `[icon][gap]` units to fill the width, controlled by `iconSize` (default 24) and `iconGap` (default 8). Each gap holds a short 4×2px brown connector bar, horizontally centered so it sits visually between the two neighboring icons; the last icon ends the row without a trailing connector, so both ends of the divider are icons. Cycle count is recalculated on resize via `ResizeObserver`.
 
 ## Background (pattern wallpaper)
 

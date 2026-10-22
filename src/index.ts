@@ -4,6 +4,8 @@ import './styles/index.less';
 // ============================================
 // 基础 UI 组件
 // ============================================
+export { Icon, ICON_LIST, ITEM_LIST, ITEM_COUNT } from './components/Icon';
+export type { IconProps, IconName } from './components/Icon';
 export { Button } from './components/Button';
 export type { ButtonProps, ButtonType, ButtonSize } from './components/Button';
 
@@ -23,7 +25,7 @@ export { Card } from './components/Card';
 export type { CardProps, CardType, CardColor } from './components/Card';
 
 export { Footer } from './components/Footer';
-export type { FooterProps } from './components/Footer';
+export type { FooterProps, FooterType } from './components/Footer';
 
 export { Collapse } from './components/Collapse';
 export type { CollapseProps } from './components/Collapse';
@@ -131,6 +133,19 @@ export type { ProgressProps, ProgressSize } from './components/Progress';
 
 export { Loading } from './components/Loading';
 export type { LoadingProps } from './components/Loading';
+
+export { Phone } from './components/Phone';
+export type { PhoneProps } from './components/Phone';
+
+export { Wallet } from './components/Wallet';
+export type { WalletProps, WalletSize } from './components/Wallet';
+
+export { WeddingInvitation, WeddingInvitationExportButton } from './components/WeddingInvitation';
+export type {
+    WeddingInvitationProps,
+    WeddingInvitationRef,
+    WeddingInvitationExportButtonProps,
+} from './components/WeddingInvitation';
 
 // ============================================
 // 新增组件

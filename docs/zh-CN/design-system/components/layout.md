@@ -202,49 +202,25 @@ interface CarouselProps extends Omit<HTMLAttributes<HTMLElement>, 'onChange'> {
 
 ## Divider
 
+默认 line-brown 恢复历史图片。line-teal、line-white、line-yellow、wave-yellow 引用找回的本地素材，zigzag 使用旧 divider_line.png 位图。高度 12px，波浪线 14px。保留 thin、hairline、dashed、squiggle 参数；icon 同时接受经典名称字符串或 React 元素，名称通过恢复的 Icon 组件渲染。
+
 ```tsx
-<Divider type="dashed-brown" />  // 默认
-<Divider type="thin" />        // 1px 实线 #e8dec7
-<Divider type="hairline" />    // 1px 细密虚线 #d5c3a2
-<Divider type="wave-yellow" /> // 黄色波浪线 #f5d04a
-<Divider type="squiggle" />    // 主题青色无缝波浪线 #19c8b9
-<Divider icon="Fish" />        // 单图标相连分割线
-```
-
-```less
-.divider {
-    width: 100%;
-    height: 12px;
-    /* 默认 type=dashed-brown */
-    background: linear-gradient(to right, #c4b89e 50%, transparent 50%) center / 12px 2px repeat-x;
-}
-.thin {
-    height: 1px;
-    background: #e8dec7;
-}
-.hairline {
-    height: 1px;
-    background: linear-gradient(to right, #d5c3a2 50%, transparent 50%) center / 6px 1px repeat-x;
-}
-.wave-yellow {
-    height: 14px;
-    background-image: url("data:image/svg+xml,...波浪路径...");
-    background-repeat: repeat-x;
-    background-size: 40px 14px;
-    background-position: center;
-}
-.squiggle {
-    height: 10px;
-    background-image: url("data:image/svg+xml,...波浪路径...");
-    background-repeat: repeat-x;
-    background-size: 120px 10px;
-    background-position: center;
+export type DividerType = 'line-brown' | 'line-teal' | 'line-white' | 'line-yellow' | 'zigzag' | 'dashed-brown' | 'thin' | 'hairline' | 'wave-yellow' | 'squiggle';
+export interface DividerProps {
+    /** 分隔线类型（type 与 icon 二选一，icon 优先） */
+    type?: DividerType;
+    /** 传入图标元素（来自 naive-icons，如 `<FishIcon size={24} />`）；传入时渲染「图标 + 连接线」循环相连的装饰分割线，铺满整行 */
+    icon?: React.ReactNode | IconName;
+    /** 图标大小（px），同 Icon 默认 24 */
+    iconSize?: number;
+    /** 图标间距（px），即相邻图标之间的连接线长度，默认 8（紧密相连） */
+    iconGap?: number;
+    /** 自定义类名 */
+    className?: string;
+    /** 自定义样式 */
+    style?: React.CSSProperties;
 }
 ```
-
-纯 CSS 实现，无图片资源：`dashed-*` 用 `linear-gradient` 画 2px 破折线（12px 节奏，50% 实 / 50% 空）；`thin` 为 `#e8dec7` 的 1px 实心细线；`hairline` 为 `#d5c3a2` 的 1px 细密虚线（6px 节奏）；`wave-yellow` 用内联 SVG data-URI 画黄色（#f5d04a）重复波浪线（40px 周期，±7px 振幅，圆头线帽）；`squiggle` 用内联 SVG data-URI 画主题青色（#19c8b9）波浪线，固定 120px 宽度平铺（`repeat-x`，viewport 0 0 120 10），首尾同高且切线水平，随容器变宽无缝衔接、不拉伸变形。
-
-传入 `icon`（`IconComponent`，一个 React 图标组件，如来自 naive-icons 的 `FishIcon`）时切换为图标相连模式（与 Footer 单图标链同思路）：flex 行重复 `[图标][空隙]` 单元铺满整行，由 `iconSize`（默认 24）与 `iconGap`（默认 8）控制。每个空隙内放一根 4×2px 棕色短连接条，水平居中，视觉上正好位于相邻两图标中间；最后一个图标不跟连接条，分割线两端都以图标收尾；周期数通过 ResizeObserver 随宽度变化实时重算。
 
 ## Background（图案壁纸）
 

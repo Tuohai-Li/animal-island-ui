@@ -15,10 +15,14 @@ animal-island-ui 是一套受《治愈系海岛风格》启发的 React + TypeSc
 
 ## 全量导出清单
 
-40 个组件，全部从 `src/index.ts` 导出（含 `FormItem` / `useForm` 伴生导出）：
+44 个组件，全部从 `src/index.ts` 导出（含 `FormItem` / `useForm` 伴生导出）：
 
 | 组件           | 职责                                                                                                                                                                                    | 交互 | 装饰 / 纯展示 |
 | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- | ------------- |
+| `Icon` | 10 个内置应用图片与 488 个本地物品 PNG | | ✓ |
+| `Phone` | 经典手机界面，应用按钮支持键盘操作 | ✓ | |
+| `Wallet` | 经典钱袋余额，支持三种尺寸 | | ✓ |
+| `WeddingInvitation` | 可定制的经典请柬，支持导出 PNG | ✓ | |
 | `Avatar`       | 头像 / Avatar.Group：图片、图标或文字内容，圆形/方形，3 种尺寸 + 任意数值，`gap` 自动缩放，叠加展示与 `+N` 超出折叠                                                                                                                                       | ✓    |               |
 | `Button`       | 按钮，5 种类型 × 3 种尺寸                                                                                                                                                                   | ✓    |               |
 | `Input`        | 输入框，3 种尺寸 + clear/prefix/suffix                                                                                                                                                      | ✓    |               |
@@ -71,3 +75,5 @@ animal-island-ui 是一套受《治愈系海岛风格》启发的 React + TypeSc
 - [css-variables.md](./css-variables.md) — 不依赖组件库自实现样式时的完整 `:root` 变量模板。
 - [components/](./components/) — 各组件的像素级样式规范。
 - [demo-site.md](./demo-site.md) — Demo 与文档站的布局规范（不属于发布的组件库）。
+
+恢复组件类型：`PhoneProps`、`WalletProps/WalletSize`、`WeddingInvitationProps/WeddingInvitationRef/WeddingInvitationExportButtonProps`。参见 [classic.md](components/classic.md)。

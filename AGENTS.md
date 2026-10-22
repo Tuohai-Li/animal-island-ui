@@ -1,9 +1,9 @@
 # AGENTS.md — working in this repository
 
-animal-island-ui is a React 18 + TypeScript 5.7 component library (40 components, Less
+animal-island-ui is a React 18 + TypeScript 5.7 component library (44 components, Less
 Modules, Vite 7 library build, Vitest 4) inspired by a cozy island-style UI.
-One runtime dependency: `naive-icons` (the icon set); everything else is a peerDependency
-or devDependency. MIT License.
+Two runtime dependencies: `naive-icons` and `dayjs`. Historical GSAP scripts are bundled
+and isolated in the loading scene; artwork rights are described in CLASSIC-NOTICE.md.
 
 This file is the entry point for coding agents. It routes; the referenced docs hold the
 detail. Keep it lean — add new rules to the docs below, not here.

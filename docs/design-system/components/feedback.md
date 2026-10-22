@@ -89,85 +89,26 @@ The small dot layer carries over from the old wallpaper track — 14px grid, 7px
 - Without a `variant`, `Progress.tsx` still sets an inline `background-color: #19c8b9`. The stylesheet gradient is fully opaque, so it paints on top and that inline color is only a paint-order fallback, not the visible result.
 - The 100% brightening applies to the gradient fill only. A `variant` injects its own `background-image` inline and deliberately keeps the scene art un-tinted at 100%.
 
-## Loading (fullscreen falling snow)
+## Loading
 
-Source: `src/components/Loading/Loading.tsx` + `types.ts` + `loading.module.less`.
-A fullscreen night-sky snowfall: 50 white round flakes (1–6px, randomly sized and positioned) fall from above the viewport while rotating, each with its own 6–12s linear duration and a negative delay so the screen is instantly filled. When `active` turns false the whole screen fades out over `fadeDuration` seconds, then unmounts.
+Default: historical black island loading screen, with the original SVG, GSAP and MotionPath animation isolated in a sandboxed iframe. The 180 × 218px scene sits 20px from the bottom-right. Scripts load only while the island is mounted. Each frame owns its globals, IDs and animation lifecycle. Reduced motion leaves a static island. Hiding the screen uses a center-out circular reveal, then unmounts it after `fadeDuration`. `variant="snow"` retains the snow effect. Delay, reactivation and unmount cleanup remain supported.
 
-**props**:
-```ts
-interface LoadingProps extends React.HTMLAttributes<HTMLDivElement> {
-    active?: boolean;       // true/false toggles the screen; default true; false → fade out then unmount
-    tip?: React.ReactNode;  // centred caption over the snowfall; falls back to a visually-hidden 加载中
-    delay?: number;         // ms before the screen appears; default 0; re-arms on every active→true transition
-    fadeDuration?: number;  // fade-out duration in seconds; default 0.6
-    zIndex?: number;        // default 3000 (above Notification's 2000)
+```tsx
+export interface LoadingProps extends React.HTMLAttributes<HTMLDivElement> {
+    /** 经典小岛动画（默认），或雪花效果 */
+    variant?: 'island' | 'snow';
+    /** 是否开启雪花屏（true / false 控制开启关闭）；false 时渐变消失 */
+    active?: boolean;
+    /** 雪花屏中央提示文字 */
+    tip?: React.ReactNode;
+    /** 延迟显示时间（毫秒），避免加载快速结束时闪烁；0 = 立即显示 */
+    delay?: number;
+    /** 渐变消失时长（秒） */
+    fadeDuration?: number;
+    /** 全屏层级，默认 3000（高于 Notification 的 2000） */
+    zIndex?: number;
 }
 ```
-
-**Screen (exact values):**
-```css
-.loading {
-    position: fixed;
-    inset: 0;
-    overflow: hidden;
-    background: #0b101a;               /* night-sky base */
-    opacity: 1;
-    transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    animation: animal-loading-fade-in 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.loading.exiting {                    /* fade-out state */
-    opacity: 0;
-    pointer-events: none;
-    /* inline transition-duration: <fadeDuration>s set from the prop */
-}
-```
-
-**Snowfall (50 flakes):**
-```css
-.snow {                                /* aria-hidden wrapper */
-    position: absolute;
-    inset: 0;
-}
-.flake {
-    position: absolute;
-    top: -30px;                        /* starts above the viewport */
-    background: #fff;
-    border-radius: 50%;
-    animation: animal-loading-snow 10s linear infinite;
-    /* per-flake inline style (generated once per mount via useMemo):
-       width/height: Math.random() * 5 + 1 px        (1–6px)
-       left: Math.random() * 100 %
-       animationDuration: Math.random() * 6 + 6 s    (6–12s, overrides the 10s above)
-       animationDelay: -(Math.random() * duration) s (negative → starts mid-cycle,
-                                                       so the first frame is already full of snow) */
-}
-
-@keyframes animal-loading-snow {
-    0%   { transform: translateY(0) rotate(0deg); }
-    100% { transform: translateY(calc(100vh + 60px)) rotate(360deg); }
-}
-```
-
-**Vignette / tip:**
-```css
-.vignette {
-    background: radial-gradient(ellipse at center, transparent 55%, rgba(5,10,20,0.6) 100%);
-}
-.tip {
-    position: absolute; inset: 0;
-    display: flex; align-items: center; justify-content: center; padding: 0 24px;
-    color: #f8f8f0; font-weight: 800; font-size: 18px;
-    letter-spacing: 0.04em; line-height: 1.5; text-align: center;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
-}
-```
-
-**Key interaction details:**
-- **Exit sequence**: `active` → false keeps the screen mounted with the `exiting` class (opacity → 0, `pointer-events: none`), and unmounts after a `fadeDuration * 1000` ms timer. Restoring `active` mid-fade cancels the timer and snaps back to fully opaque instantly.
-- `delay` re-arms on every `active` → `true` transition, so a fast load never flashes the screen.
-- a11y: the root carries `role="status"`; the snowfall wrapper and the vignette are `aria-hidden`; without `tip` a visually-hidden `加载中` span provides the accessible content.
-- `prefers-reduced-motion: reduce` pauses the snowfall and the enter animation; the opacity fade is kept since it is not motion. The snowfall is **paused, not removed** — `animation: none` would drop all 50 flakes back to their static `top: -30px` above the viewport, leaving nothing but the night-sky backdrop. Because each flake already carries a *negative* `animation-delay`, pausing freezes every one at a random point along its fall, so reduced-motion users get a static snow scene filling the viewport rather than a black screen.
 
 ## Skeleton (shimmer placeholder)
 
@@ -242,66 +183,26 @@ SkeletonAvatarProps { size?: 'small'|'middle'|'large'; shape?: 'circle'|'square'
 - In paragraph mode the last row defaults to 60% width (overridable via `rowWidths`).
 - `aria-hidden` keeps it out of screen readers.
 
-## BackTop (arrow scroll-to-top)
+## BackTop
 
-Source: `src/components/BackTop/BackTop.tsx` + `back-top.module.less`.
+Uses the recovered historical PNG as an embedded base64 image, with empty alt text and the accessible name on its focusable parent. The image is 64 × 64px with a warm drop shadow. Existing scroll-container, threshold, keyboard and smooth-scroll behavior remains supported.
 
-A fixed bottom-right back-to-top button, rendering `RocketIcon` from `naive-icons` (48×48 viewBox: cream `#FAEDCD` fuselage, teal `#2A9D8F` porthole, `#E76F51` flame and fins, ink `#2A2A2A` stroke) at `size={64}`; clicking it scrolls smoothly to the top with easeInOutQuad. The icon is decorative and carries `aria-hidden` — the accessible name comes from the button's own `aria-label`.
-
-**props**:
-```ts
-interface BackTopProps {
-    target?: () => HTMLElement | Window; // default () => window
-    visibilityHeight?: number;           // default 400
-    duration?: number;                   // animation duration in ms, default 300
-    onClick?: (e: MouseEvent) => void;
+```tsx
+export interface BackTopProps {
+    /** 滚动容器，默认 window */
+    target?: () => HTMLElement | Window;
+    /** 滚动多少 px 后显示，默认 400 */
+    visibilityHeight?: number;
+    /** 点击回到顶部后的回调 */
+    onClick?: React.MouseEventHandler<HTMLDivElement>;
+    /** 自定义类名 */
     className?: string;
-    style?: CSSProperties;
+    /** 自定义样式 */
+    style?: React.CSSProperties;
+    /** 滚动动画时长(ms)，默认 300 */
+    duration?: number;
 }
 ```
-
-**Exact styles**:
-```less
-// container
-position: fixed;
-bottom: 48px;
-right: 32px;
-z-index: 1000;
-cursor: pointer;
-opacity: 0;
-visibility: hidden;
-transition: opacity 0.3s, transform 0.3s, visibility 0.3s cubic-bezier(0.4,0,0.2,1);
-
-// visible state
-opacity: 1;
-visibility: visible;
-transform: translateY(0);
-
-// icon (naive-icons RocketIcon, 48×48 viewBox, rendered at size 64)
-.img {
-    width: 64px;
-    height: 64px;
-    filter: drop-shadow(0 4px 10px rgba(91,78,30,0.22));
-    transition: filter 0.3s cubic-bezier(0.4,0,0.2,1);
-}
-.backtop:hover .img { filter: drop-shadow(0 4px 14px rgba(91,78,30,0.32)); }
-
-// hover (container)
-transform: scale(1.08);
-// active (press)
-transform: translateY(2px) scale(0.96);
-
-// focus-visible
-outline: 2px solid #ffcc00;
-outline-offset: 4px;
-border-radius: 16px;
-```
-
-**Key interaction details:**
-- Listens to `window.scroll` by default and appears once scrolled past `visibilityHeight`.
-- The `target` prop accepts a function returning a custom scroll container.
-- The scroll animation uses `requestAnimationFrame` with easeInOutQuad easing.
-- Enter/Space on the keyboard triggers the scroll.
 
 ## Countdown (deadline timer)
 
@@ -326,22 +227,18 @@ interface CountdownProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'
 
 The default variant is a white 20px-radius panel with a warm border and soft elevation. `island` uses the parchment background `rgb(247,243,223)` with a 2px dashed `#d4c4a8` border. Each DD / HH / mm / ss token renders as its own 12px-radius digit tile (a cream gradient face `linear-gradient(180deg, #fff, #f8f8f0)`; a `#fffdf4→#f8f8f0` gradient on the island variant; the 1.5px `#d4c9b4` border is opt-in via `bordered`, off by default) while format literals such as `:` or `天` render as plain separators. Colons are sized with the digits, 900 weight, `#8b7355`. Inside each tile every digit is a vertical strip of two 0-9 cycles; all changes roll downward with a 0.35s `cubic-bezier(0.4, 0, 0.2, 1)` transition (odometer style). When a digit wraps past 0, the strip instantly teleports to the same digit in the next cycle and keeps rolling down, so the direction never reverses. Digits use the earth-tone `#8b7355`, 900 weight, tabular, sized 20/26/34px. The rolling strips are `aria-hidden` and a visually-hidden span carries the full formatted value; the root uses `role="timer"` and `aria-live="off"` so screen readers are not interrupted four times per second.
 
-## Time (live clock card)
+## Time
 
-Source: `src/components/Time/Time.tsx` + `time.module.less`.
+Historical horizontal clock: a cream gradient panel, 3px warm border, 18px corners and 16px / 36px padding. Dates stack on the left of a 3px separator; 48px brown HH:MM digits sit on the right. At mobile widths, padding becomes 12px / 20px and clock digits 32px. Date formatting and per-instance locale remain compatible; the one-second timer clears on unmount.
 
-A live clock card: a large `HH:MM` readout on top refreshed from `new Date()` every second, and a date capsule below showing the weekday and the month-day. The weekday and month-day are both rendered through dayjs format templates, so they can be re-shaped or localized; all native `div` attributes (`className`, `style`, `aria-*`…) pass through to the root.
-
-```ts
-export type TimeLocale = 'en' | 'zh-cn';
-
+```tsx
 export interface TimeProps extends React.HTMLAttributes<HTMLDivElement> {
-    weekdayFormat?: string; // default 'dddd'
-    dateFormat?: string;    // default 'MMM D'; 'M月D日' when locale is 'zh-cn'
-    locale?: TimeLocale;    // default 'en'
+    /** 星期格式，支持 dayjs 核心 token（dddd / ddd / dd 等），默认 dddd */
+    weekdayFormat?: string;
+    /** 月日格式，支持 dayjs 核心 token（YYYY / MMM / M / D / dddd 等），默认 MMM D，zh-cn 下默认 M月D日 */
+    dateFormat?: string;
+    /** 日期行语言，决定 dddd / MMM 输出的语言名，默认 en */
+    locale?: TimeLocale;
 }
 ```
 
-Both formats take dayjs **core** tokens (`dddd` / `ddd` / `MMM` / `M` / `D` / `YYYY` …); plugin-owned tokens do not expand. `zh-cn` is registered at module scope inside the component — the bundled dayjs instance cannot see a host app's locale imports, so this is what makes `locale="zh-cn"` work with no extra setup. Formatting runs on a per-instance clone (`dayjs(now).locale(locale)`), never a global `dayjs.locale()` call, so the library changes no process-wide state.
-
-The card is a vertically stacked inline-flex panel — background `var(--animal-bg-color)`, 20px radius, `--animal-shadow-sm` elevation, no border — fading in over `--animal-motion-duration-slow` on mount. The clock is 44px / 900 weight / `var(--animal-text-color)` with tabular numerals and 1px letter-spacing; the colon blinks every second (`step-end`, opacity 0 at 50%). The date capsule is a 999px-radius pill on `var(--animal-primary-color-bg)` holding the uppercase weekday in `var(--animal-primary-color)` (800 weight, 1px letter-spacing), a `·` separator in the disabled tone, and the month-day in `var(--animal-text-color-secondary)` (700 weight). The root uses `role="timer"` with `aria-live="off"` so the per-second refresh never interrupts screen readers.

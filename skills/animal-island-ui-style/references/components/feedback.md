@@ -40,31 +40,24 @@ Notes:
 
 ## Loading
 
-Fullscreen night-sky snowfall over a `#0b101a` base: 50 white round flakes (1–6px, randomly sized and positioned) fall from above the viewport while rotating, each with its own 6–12s linear duration and a negative delay so the screen is instantly filled. A centre vignette adds depth; the optional `tip` floats centred in cream white. When `active` turns false the whole screen fades out over `fadeDuration` seconds, then unmounts.
-
-```ts
-interface LoadingProps extends React.HTMLAttributes<HTMLDivElement> {
-    active?: boolean; // true/false toggles the screen; default true; false → fade out then unmount
-    tip?: React.ReactNode; // centred caption; falls back to a visually-hidden 加载中
-    delay?: number; // ms before the screen appears; default 0; re-arms on every active→true transition
-    fadeDuration?: number; // fade-out duration in seconds; default 0.6
-    zIndex?: number; // default 3000 (above Notification's 2000)
-}
-```
+Default: historical black island loading screen, with the original SVG, GSAP and MotionPath animation isolated in a sandboxed iframe. The 180 × 218px scene sits 20px from the bottom-right. Scripts load only while the island is mounted. Each frame owns its globals, IDs and animation lifecycle. Reduced motion leaves a static island. Hiding the screen uses a center-out circular reveal, then unmounts it after `fadeDuration`. `variant="snow"` retains the snow effect. Delay, reactivation and unmount cleanup remain supported.
 
 ```tsx
-<Loading active={active} />
-<Loading active={active} tip="正在连接岛屿…" />
-<Loading active={active} delay={300} />
-<Loading active={active} fadeDuration={1.2} zIndex={5000} />
+export interface LoadingProps extends React.HTMLAttributes<HTMLDivElement> {
+    /** 经典小岛动画（默认），或雪花效果 */
+    variant?: 'island' | 'snow';
+    /** 是否开启雪花屏（true / false 控制开启关闭）；false 时渐变消失 */
+    active?: boolean;
+    /** 雪花屏中央提示文字 */
+    tip?: React.ReactNode;
+    /** 延迟显示时间（毫秒），避免加载快速结束时闪烁；0 = 立即显示 */
+    delay?: number;
+    /** 渐变消失时长（秒） */
+    fadeDuration?: number;
+    /** 全屏层级，默认 3000（高于 Notification 的 2000） */
+    zIndex?: number;
+}
 ```
-
-Notes:
-
-- **Exit sequence**: `active` → false keeps the screen mounted with an `exiting` class (opacity → 0, `pointer-events: none`); a `fadeDuration * 1000` ms timer then unmounts it. Restoring `active` mid-fade cancels the timer and snaps back to opaque instantly.
-- **`delay` prevents flash**: the timer re-arms on every `active` → `true` transition, so a 600ms load with `delay={300}` barely flickers.
-- **Flakes are generated once per mount** (`useMemo`): random size 1–6px, `left` 0–100%, duration 6–12s, and a *negative* delay that starts each flake mid-cycle so the first frame is already full of snow instead of waiting up to 10s.
-- **A11y**: the root carries `role="status"`; the snowfall wrapper and vignette are `aria-hidden`; without `tip`, a visually-hidden `加载中` span provides the accessible content. Under `prefers-reduced-motion: reduce` the snowfall is **paused rather than removed** — never use `animation: none` here: the flakes' only source of visibility is the animation and their static position is `top: -30px`, above the viewport, so removing it leaves a bare black backdrop. The built-in negative `animation-delay` is what makes pausing useful: each flake freezes at a random point along its fall, producing a static snow scene that fills the viewport. The opacity fade is kept since it is not motion.
 
 ## Skeleton
 
@@ -115,31 +108,24 @@ Notes:
 
 ## BackTop
 
-Floating back-to-top button that appears in the bottom-right corner after scrolling past a threshold. Default icon is `RocketIcon` from `naive-icons` rendered at `size={64}` (cream `#FAEDCD` fuselage, teal `#2A9D8F` porthole, `#E76F51` flame and fins, ink `#2A2A2A` stroke) with a drop-shadow elevation; clicking smooth-scrolls to the top with an easeInOutQuad animation. There is no icon prop — the rocket is fixed, and per the icon rule it comes from `naive-icons` rather than a local asset.
-
-```ts
-interface BackTopProps {
-    target?: () => HTMLElement | Window; // default () => window
-    visibilityHeight?: number;           // default 400 (px)
-    duration?: number;                   // scroll animation ms, default 300
-    onClick?: React.MouseEventHandler<HTMLDivElement>;
-    className?: string;
-    style?: React.CSSProperties;
-}
-```
+Uses the recovered historical PNG as an embedded base64 image, with empty alt text and the accessible name on its focusable parent. The image is 64 × 64px with a warm drop shadow. Existing scroll-container, threshold, keyboard and smooth-scroll behavior remains supported.
 
 ```tsx
-<BackTop />                                    {/* arrow icon, 400px threshold */}
-<div ref={ref} style={{ height: 300, overflow: 'auto' }}>
-    <BackTop target={() => ref.current!} visibilityHeight={200} />
-</div>
-<BackTop duration={800} />
+export interface BackTopProps {
+    /** 滚动容器，默认 window */
+    target?: () => HTMLElement | Window;
+    /** 滚动多少 px 后显示，默认 400 */
+    visibilityHeight?: number;
+    /** 点击回到顶部后的回调 */
+    onClick?: React.MouseEventHandler<HTMLDivElement>;
+    /** 自定义类名 */
+    className?: string;
+    /** 自定义样式 */
+    style?: React.CSSProperties;
+    /** 滚动动画时长(ms)，默认 300 */
+    duration?: number;
+}
 ```
-
-Notes:
-
-- **Default target is `window`** — works out of the box for page-level scrolling. Pass `target` for a custom scroll container.
-- **A11y**: `role="button"`, `tabIndex={0}`, `aria-label="返回顶部"`. Enter/Space trigger the scroll.
 
 ## Countdown
 
@@ -167,21 +153,16 @@ The remaining time never drops below zero and `onFinish` fires once. Without a `
 
 ## Time
 
-```ts
-type TimeLocale = 'en' | 'zh-cn';
+Historical horizontal clock: a cream gradient panel, 3px warm border, 18px corners and 16px / 36px padding. Dates stack on the left of a 3px separator; 48px brown HH:MM digits sit on the right. At mobile widths, padding becomes 12px / 20px and clock digits 32px. Date formatting and per-instance locale remain compatible; the one-second timer clears on unmount.
 
-interface TimeProps extends React.HTMLAttributes<HTMLDivElement> {
-    weekdayFormat?: string; // default 'dddd'
-    dateFormat?: string; // default 'MMM D'; 'M月D日' when locale is 'zh-cn'
-    locale?: TimeLocale; // default 'en'
+```tsx
+export interface TimeProps extends React.HTMLAttributes<HTMLDivElement> {
+    /** 星期格式，支持 dayjs 核心 token（dddd / ddd / dd 等），默认 dddd */
+    weekdayFormat?: string;
+    /** 月日格式，支持 dayjs 核心 token（YYYY / MMM / M / D / dddd 等），默认 MMM D，zh-cn 下默认 M月D日 */
+    dateFormat?: string;
+    /** 日期行语言，决定 dddd / MMM 输出的语言名，默认 en */
+    locale?: TimeLocale;
 }
 ```
 
-```tsx
-<Time />
-<Time locale="zh-cn" />
-<Time weekdayFormat="ddd" dateFormat="YYYY/MM/DD" />
-<Time className="island-clock" aria-label="岛屿时间" />
-```
-
-Live clock card: a large `HH:MM` readout on top refreshed from `new Date()` every second, weekday + month-day in a date capsule below. `weekdayFormat` / `dateFormat` accept dayjs core tokens (`dddd` / `ddd` / `MMM` / `M` / `D` / `YYYY`…); plugin-owned tokens do not expand. `locale="zh-cn"` is built in and needs no import. Borderless panel on `var(--animal-bg-color)` with 20px radius and `--animal-shadow-sm` elevation, fading in on mount; clock 44px 900 tabular in `var(--animal-text-color)` with a blinking colon; the capsule is a 999px pill on `var(--animal-primary-color-bg)` with an uppercase `var(--animal-primary-color)` weekday. The root is `role="timer"` with `aria-live="off"` so the per-second refresh stays silent to screen readers.

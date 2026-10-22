@@ -1,0 +1,99 @@
+.animal-wallet {
+    --animal-wallet-pill-w: 132px;
+    --animal-wallet-pill-h: 42px;
+    --animal-wallet-bag: 50px;
+    --animal-wallet-text-size: 17px;
+    --animal-wallet-halo: 4px;
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    width: var(--animal-wallet-pill-w);
+    /* leave room for the pouch overhanging ~70% above the pill */
+    padding-top: calc(var(--animal-wallet-bag) * 0.7);
+    user-select: none;
+    line-height: 1;
+}
+
+.animal-wallet-small {
+    --animal-wallet-pill-w: 96px;
+    --animal-wallet-pill-h: 32px;
+    --animal-wallet-bag: 38px;
+    --animal-wallet-text-size: 12px;
+    --animal-wallet-halo: 3px;
+}
+
+.animal-wallet-large {
+    --animal-wallet-pill-w: 176px;
+    --animal-wallet-pill-h: 54px;
+    --animal-wallet-bag: 66px;
+    --animal-wallet-text-size: 22px;
+    --animal-wallet-halo: 6px;
+}
+
+.animal-wallet-bag-slot {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: var(--animal-wallet-bag);
+    height: var(--animal-wallet-bag);
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 2;
+    filter: drop-shadow(0 4px 6px rgba(91, 78, 30, 0.18));
+}
+
+.animal-wallet-pill {
+    position: relative;
+    width: 100%;
+    height: var(--animal-wallet-pill-h);
+    border-radius: 999px;
+    background: #b3a046;
+    box-shadow:
+        inset 0 -6px 0 rgba(91, 78, 30, 0.18),
+        inset 0 0 0 2px rgba(91, 78, 30, 0.12),
+        0 0 0 var(--animal-wallet-halo) #fffbe7,
+        0 6px 14px rgba(91, 78, 30, 0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+}
+
+.animal-wallet-value {
+    font-family: 'Nunito', 'Noto Sans SC', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: var(--animal-wallet-text-size);
+    color: #fff;
+    letter-spacing: 0.04em;
+    text-shadow:
+        0 2px 0 rgba(91, 78, 30, 0.55),
+        0 0 1px rgba(91, 78, 30, 0.55);
+    font-variant-numeric: tabular-nums;
+    padding: 0 12px;
+    white-space: nowrap;
+}
+
+.animal-wallet:hover .animal-wallet-bag-slot {
+    animation: animal-wallet-bag-bounce 0.5s ease-in-out;
+}
+@keyframes animal-wallet-bag-bounce {
+    0%,
+    100% {
+        transform: translateX(-50%) translateY(0) rotate(0deg);
+    }
+    35% {
+        transform: translateX(-50%) translateY(-8px) rotate(-6deg);
+    }
+    70% {
+        transform: translateX(-50%) translateY(-2px) rotate(3deg);
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .animal-wallet:hover .animal-wallet-bag-slot {
+        animation: none;
+    }
+}

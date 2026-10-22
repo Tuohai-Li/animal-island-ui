@@ -1,20 +1,58 @@
-import { act, render, screen } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { Loading } from './Loading';
 import styles from './loading.module.less';
+import { IslandScene } from './IslandScene';
+
+describe('经典小岛动画隔离', () => {
+    afterEach(() => vi.unstubAllGlobals());
+
+    it('减少动态效果时保留静态 SVG，不运行历史脚本', () => {
+        vi.stubGlobal('matchMedia', () => ({ matches: true, addEventListener: vi.fn(), removeEventListener: vi.fn() }));
+        render(<IslandScene />);
+        const frame = screen.getByTitle('经典小岛加载动画');
+        expect(frame.getAttribute('srcdoc')).toContain('<svg');
+        expect(frame.getAttribute('srcdoc')).not.toContain('<script>');
+    });
+
+    it('动画脚本仅进入独立帧，偏好改变后切回静态场景并清理监听', async () => {
+        let onChange: (() => void) | undefined;
+        const remove = vi.fn();
+        const media = {
+            matches: false,
+            addEventListener: (_event: string, listener: () => void) => {
+                onChange = listener;
+            },
+            removeEventListener: remove,
+        };
+        vi.stubGlobal('matchMedia', () => media);
+        const { unmount } = render(<IslandScene />);
+        const frame = screen.getByTitle('经典小岛加载动画');
+        await waitFor(() => expect(frame.getAttribute('srcdoc')).toContain('<script>'));
+        expect(frame).toHaveAttribute('sandbox', 'allow-scripts');
+        act(() => {
+            media.matches = true;
+            onChange?.();
+        });
+        expect(frame.getAttribute('srcdoc')).not.toContain('<script>');
+        unmount();
+        expect(remove).toHaveBeenCalledWith('change', expect.any(Function));
+    });
+});
 
 describe('Loading', () => {
     describe('渲染', () => {
-        it('默认渲染全屏落雪 role=status 与兜底读屏文案', () => {
+        it('默认恢复经典小岛与 role=status 读屏文案', () => {
             render(<Loading />);
             const status = screen.getByRole('status');
             expect(status).toBeInTheDocument();
             expect(status).toHaveClass(styles.loading);
             expect(status.textContent).toBe('加载中');
+            expect(screen.getByTitle('经典小岛加载动画')).toHaveAttribute('sandbox', 'allow-scripts');
         });
 
         it('雪花层与暗角均为 aria-hidden，雪花数量为 50', () => {
-            const { container } = render(<Loading />);
+            const { container } = render(<Loading variant="snow" />);
             const snow = container.querySelector(`.${styles.snow}`) as HTMLElement;
             expect(snow).toBeInTheDocument();
             expect(snow).toHaveAttribute('aria-hidden', 'true');
@@ -25,7 +63,7 @@ describe('Loading', () => {
         });
 
         it('每片雪花内联尺寸在 1–6px 且带负延迟（首屏即有分布）', () => {
-            const { container } = render(<Loading />);
+            const { container } = render(<Loading variant="snow" />);
             const flakes = Array.from(container.querySelectorAll<HTMLElement>(`.${styles.flake}`));
             for (const flake of flakes) {
                 const size = parseFloat(flake.style.width);

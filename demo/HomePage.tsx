@@ -430,6 +430,11 @@ const features: Array<{ icon: string; title: string; desc: string }> = [
 ];
 
 const components = [
+    { key: 'classic', name: 'Classic Collection', desc: '经典组件回归：手机、钱袋和婚礼请柬' },
+    { key: 'materials', name: 'Classic Materials', desc: '内置图片图标、分割线与经典装饰素材' },
+    { key: 'phone', name: 'Phone', desc: '经典九宫格小岛手机，可点击的应用图标' },
+    { key: 'wallet', name: 'Wallet', desc: '带千分位和三种尺寸的经典钱袋' },
+    { key: 'wedding', name: 'WeddingInvitation', desc: '可编辑、可导出的经典婚礼请柬' },
     { key: 'input', name: 'Input', desc: '前后缀、一键清空、校验状态' },
     {
         key: 'form',

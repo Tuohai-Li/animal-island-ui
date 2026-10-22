@@ -21,6 +21,46 @@
     animation: animal-loading-fade-in 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+@property --classic-reveal {
+    syntax: '<length>';
+    inherits: false;
+    initial-value: 0px;
+}
+.island {
+    background: #000;
+    --classic-reveal: 0px;
+    .snow,
+    .vignette {
+        display: none;
+    }
+}
+.islandScene {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    width: 180px;
+    height: 218px;
+    border: 0;
+    pointer-events: none;
+}
+.loading.island.exiting {
+    opacity: 1;
+    --classic-reveal: 150vmax;
+    mask-image: radial-gradient(
+        circle at center,
+        transparent var(--classic-reveal),
+        black calc(var(--classic-reveal) + 1px)
+    );
+    transition-property: --classic-reveal;
+}
+@media (prefers-reduced-motion: reduce) {
+    .loading.island.exiting {
+        opacity: 0;
+        mask-image: none;
+        transition-property: opacity;
+    }
+}
+
 // 渐变消失：整体淡出并放行点击
 .loading.exiting {
     opacity: 0;

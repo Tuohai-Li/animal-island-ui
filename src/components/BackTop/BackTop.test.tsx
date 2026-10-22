@@ -12,13 +12,11 @@ describe('BackTop', () => {
         expect(el).not.toHaveClass(styles.visible);
     });
 
-    it('渲染默认 icon（naive-icons 的 RocketIcon）', () => {
+    it('渲染旧版内置位图，装饰图片不重复朗读按钮名称', () => {
         const { container } = render(<BackTop />);
-        const svg = container.querySelector('svg');
-        expect(svg).toBeInTheDocument();
-        expect(svg).toHaveAttribute('viewBox', '0 0 48 48');
-        // 纯装饰：无障碍名称由外层 role="button" 的 aria-label 提供
-        expect(svg).toHaveAttribute('aria-hidden', 'true');
+        const image = container.querySelector('img');
+        expect(image).toHaveAttribute('src', expect.stringMatching(/^data:image\/png;base64,/));
+        expect(image).toHaveAttribute('aria-hidden', 'true');
     });
 
     it('点击触发 onClick', async () => {

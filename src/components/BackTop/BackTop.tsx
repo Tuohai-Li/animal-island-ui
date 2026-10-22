@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import classNames from 'classnames';
-import { RocketIcon } from 'naive-icons';
+import bitmap from './back-top.base64?raw';
 import styles from './back-top.module.less';
 
 export interface BackTopProps {
@@ -89,7 +89,7 @@ export const BackTop: React.FC<BackTopProps> = ({
                 }
             }}
         >
-            <RocketIcon size={64} className={styles.img} />
+            <img src={`data:image/png;base64,${bitmap.trim()}`} className={styles.img} alt="" aria-hidden="true" />
         </div>
     );
 };

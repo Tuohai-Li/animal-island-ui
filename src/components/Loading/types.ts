@@ -1,6 +1,8 @@
 import React from 'react';
 
 export interface LoadingProps extends React.HTMLAttributes<HTMLDivElement> {
+    /** 经典小岛动画（默认），或雪花效果 */
+    variant?: 'island' | 'snow';
     /** 是否开启雪花屏（true / false 控制开启关闭）；false 时渐变消失 */
     active?: boolean;
     /** 雪花屏中央提示文字 */

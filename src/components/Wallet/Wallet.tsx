@@ -1,0 +1,59 @@
+import React from 'react';
+import styles from './wallet.module.less';
+import classNames from 'classnames';
+import bagIcon from './bagIcon';
+
+export type WalletSize = 'small' | 'medium' | 'large';
+
+export interface WalletProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children'> {
+    /** 金额数值，数字会按千分位格式化；字符串则原样展示 */
+    value?: number | string;
+    /** 自定义货币图标，默认使用动森风格钱袋 */
+    icon?: React.ReactNode;
+    /** 尺寸预设 */
+    size?: WalletSize;
+    /** 千分位分隔符，默认 ","，传 "" 可关闭 */
+    thousandSeparator?: string;
+    className?: string;
+    style?: React.CSSProperties;
+}
+
+/** 数值格式化：仅对 number 类型按千分位插入分隔符 */
+const formatValue = (value: WalletProps['value'], sep: string): string => {
+    if (value === undefined || value === null) return '00,000';
+    if (typeof value !== 'number') return String(value);
+    if (!sep) return String(value);
+    const sign = value < 0 ? '-' : '';
+    const [int, frac] = Math.abs(value).toString().split('.');
+    const intWithSep = int.replace(/\B(?=(\d{3})+(?!\d))/g, sep);
+    return frac ? `${sign}${intWithSep}.${frac}` : `${sign}${intWithSep}`;
+};
+
+const SIZE_CLASS: Record<WalletSize, string | false> = {
+    small: styles['animal-wallet-small'],
+    medium: false,
+    large: styles['animal-wallet-large'],
+};
+
+export const Wallet: React.FC<WalletProps> = ({
+    value = '00,000',
+    icon,
+    size = 'medium',
+    thousandSeparator = ',',
+    className,
+    style,
+    ...rest
+}) => {
+    return (
+        <div className={classNames(styles['animal-wallet'], SIZE_CLASS[size], className)} style={style} {...rest}>
+            <div className={styles['animal-wallet-bag-slot']} aria-hidden="true">
+                {icon ?? <img src={bagIcon} alt="" style={{ width: '80%', height: '80%', objectFit: 'contain' }} />}
+            </div>
+            <div className={styles['animal-wallet-pill']}>
+                <span className={styles['animal-wallet-value']}>{formatValue(value, thousandSeparator)}</span>
+            </div>
+        </div>
+    );
+};
+
+Wallet.displayName = 'Wallet';

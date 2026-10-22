@@ -1,0 +1,221 @@
+.preview {
+    color: #725d42;
+}
+.intro {
+    padding: 12px 4px 32px;
+}
+.eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #668472;
+    font-weight: 800;
+}
+.intro h1 {
+    font-size: clamp(25px, 3vw, 38px);
+    line-height: 1.4;
+    margin: 14px 0 8px;
+    letter-spacing: 1px;
+}
+.intro p {
+    font-size: 14px;
+    color: #9a8a73;
+}
+.chips {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+.chips span {
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #64826b;
+    background: #e9f1e6;
+}
+.grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: 22px;
+    align-items: start;
+}
+.column {
+    display: grid;
+    gap: 22px;
+    min-width: 0;
+}
+.panel {
+    min-width: 0;
+    padding: 24px;
+    background: #fffdf8;
+    border-radius: 24px;
+    box-shadow: 0 5px 22px rgba(114, 93, 66, 0.05);
+    border: 1px solid #eee8da;
+}
+.heading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #7a865a;
+    flex-wrap: wrap;
+}
+.heading h2 {
+    font-size: 16px;
+    color: #725d42;
+    margin: 0;
+}
+.heading > span:last-child {
+    margin-left: auto;
+    font-size: 10px;
+    padding: 3px 7px;
+    background: #f4efdb;
+    border-radius: 999px;
+    color: #9b8856;
+}
+.caption {
+    color: #a2937d;
+    font-size: 12px;
+    line-height: 1.8;
+    margin: 10px 0 18px;
+}
+.phoneStage {
+    border-radius: 20px;
+    padding: 24px 12px;
+    background:
+        radial-gradient(circle, #b4cdb738 1px, transparent 1px) 0 0 / 14px 14px,
+        #eaf1e3;
+}
+.status {
+    min-height: 22px;
+    text-align: center;
+    font-size: 12px;
+    color: #8c987b;
+    margin: 14px 0 0;
+}
+.walletStage {
+    display: flex;
+    justify-content: center;
+    padding: 24px 0 32px;
+}
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.sizes {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    align-items: end;
+    flex-wrap: wrap;
+    padding: 28px 0 10px;
+}
+.editor {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+.editor label {
+    display: grid;
+    gap: 7px;
+    color: #a2937d;
+    font-size: 11px;
+    min-width: 0;
+}
+.dateField {
+    grid-column: 1 / -1;
+}
+.toolbar {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    margin: 18px 0 24px;
+}
+.toggle {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-size: 11px;
+}
+.invitationStage {
+    background: #f0eadc;
+    padding: 24px 12px;
+    border-radius: 20px;
+}
+.clockStage {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0 28px;
+}
+@media (max-width: 1050px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+@media (max-width: 480px) {
+    .panel {
+        padding: 16px;
+        border-radius: 18px;
+    }
+    .phoneStage {
+        padding: 20px 8px;
+    }
+    .invitationStage {
+        padding: 16px 0;
+    }
+    .heading h2 {
+        font-size: 14px;
+    }
+    .eyebrow {
+        letter-spacing: 1px;
+        font-size: 9px;
+    }
+}
+.materialIcons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(72px, 1fr));
+    gap: 14px;
+    margin: 24px 0;
+}
+.materialIcons > div {
+    display: grid;
+    place-items: center;
+    gap: 10px;
+    padding: 14px 6px;
+    border-radius: 14px;
+    background: #f4efdf;
+}
+.materialIcons span:last-child {
+    font-size: 10px;
+}
+.itemStrip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    padding: 16px 0;
+}
+.materialLink {
+    display: inline-block;
+    margin-top: 16px;
+    color: #65866d;
+    font-size: 13px;
+    font-weight: 700;
+}
+.dividerSample {
+    display: grid;
+    grid-template-columns: 95px 1fr;
+    align-items: center;
+    gap: 16px;
+    margin: 14px 0;
+}
+.dividerSample > span {
+    font-size: 12px;
+    color: #9b8b72;
+}

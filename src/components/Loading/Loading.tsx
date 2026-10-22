@@ -1,10 +1,12 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { LoadingProps } from './types';
 import styles from './loading.module.less';
+import { IslandScene } from './IslandScene';
 
 const FLAKE_COUNT = 50;
 
 export const Loading: React.FC<LoadingProps> = ({
+    variant = 'island',
     active = true,
     tip,
     delay = 0,
@@ -25,18 +27,20 @@ export const Loading: React.FC<LoadingProps> = ({
     // 负延迟让每片雪花从周期中段开始，首屏即有分布，无需等待飘满
     const flakes = useMemo(
         () =>
-            Array.from({ length: FLAKE_COUNT }, () => {
-                const size = Math.random() * 5 + 1;
-                const duration = Math.random() * 6 + 6;
-                return {
-                    width: size,
-                    height: size,
-                    left: `${Math.random() * 100}%`,
-                    animationDuration: `${duration}s`,
-                    animationDelay: `${-Math.random() * duration}s`,
-                };
-            }),
-        []
+            variant !== 'snow'
+                ? []
+                : Array.from({ length: FLAKE_COUNT }, () => {
+                      const size = Math.random() * 5 + 1;
+                      const duration = Math.random() * 6 + 6;
+                      return {
+                          width: size,
+                          height: size,
+                          left: `${Math.random() * 100}%`,
+                          animationDuration: `${duration}s`,
+                          animationDelay: `${-Math.random() * duration}s`,
+                      };
+                  }),
+        [variant]
     );
 
     useEffect(() => {
@@ -80,7 +84,9 @@ export const Loading: React.FC<LoadingProps> = ({
 
     if (!shown) return null;
 
-    const rootCls = [styles.loading, exiting && styles.exiting, className].filter(Boolean).join(' ');
+    const rootCls = [styles.loading, variant === 'island' && styles.island, exiting && styles.exiting, className]
+        .filter(Boolean)
+        .join(' ');
 
     return (
         <div
@@ -89,12 +95,15 @@ export const Loading: React.FC<LoadingProps> = ({
             role="status"
             {...rest}
         >
-            <div className={styles.snow} aria-hidden="true">
-                {flakes.map((flakeStyle, i) => (
-                    <span key={i} className={styles.flake} style={flakeStyle} />
-                ))}
-            </div>
-            <span className={styles.vignette} aria-hidden="true" />
+            {variant === 'island' && <IslandScene />}
+            {variant === 'snow' && (
+                <div className={styles.snow} aria-hidden="true">
+                    {flakes.map((flakeStyle, i) => (
+                        <span key={i} className={styles.flake} style={flakeStyle} />
+                    ))}
+                </div>
+            )}
+            {variant === 'snow' && <span className={styles.vignette} aria-hidden="true" />}
             {tip ? <div className={styles.tip}>{tip}</div> : <span className={styles.srOnly}>加载中</span>}
         </div>
     );

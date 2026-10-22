@@ -6,8 +6,14 @@ import styles from './footer.module.less';
 const thisYear = new Date().getFullYear();
 
 describe('Footer', () => {
+    it('默认恢复树林装饰，sea 参数恢复海岸', () => {
+        const { container, rerender } = render(<Footer />);
+        expect(container.firstChild).toHaveClass(styles.artwork, styles.tree);
+        rerender(<Footer type="sea" />);
+        expect(container.firstChild).toHaveClass(styles.sea);
+    });
     it('默认渲染版权栏（当前年份 + 默认文案）', () => {
-        const { container } = render(<Footer />);
+        const { container } = render(<Footer type="copyright" />);
         const root = container.firstChild as HTMLElement;
         expect(root).toBeInTheDocument();
         expect(root).toHaveTextContent(`© ${thisYear} All Rights Reserved.`);
@@ -24,7 +30,7 @@ describe('Footer', () => {
     });
 
     it('默认样式：颜色 #807d75、12px、padding 16px 0、居中', () => {
-        const { container } = render(<Footer />);
+        const { container } = render(<Footer type="copyright" />);
         const root = container.firstChild as HTMLElement;
         expect(root).toHaveStyle({
             color: '#807d75',
@@ -34,14 +40,14 @@ describe('Footer', () => {
     });
 
     it('应用 className 与 style', () => {
-        const { container } = render(<Footer className="x" style={{ fontSize: 14 }} />);
+        const { container } = render(<Footer type="copyright" className="x" style={{ fontSize: 14 }} />);
         const root = container.firstChild as HTMLElement;
         expect(root).toHaveClass('x');
         expect(root).toHaveStyle({ fontSize: '14px' });
     });
 
     it('语义化 footer 元素', () => {
-        const { container } = render(<Footer />);
+        const { container } = render(<Footer type="copyright" />);
         expect(container.firstChild?.nodeName).toBe('FOOTER');
         expect(container.firstChild).toHaveClass(styles.footer);
     });

@@ -24,8 +24,7 @@ const pad = (value: number) => String(value).padStart(2, '0');
 
 /**
  * 实时时钟卡片：
- * 上方 HH:MM 时钟每秒刷新，冒号按秒闪烁；
- * 下方主色胶囊显示星期与月日，挂载时淡入。星期与月日可分别用 dayjs format 定制。
+ * 左侧日期、右侧 HH:MM，冒号按秒闪烁；日期格式可分别用 dayjs token 定制。
  */
 export const Time: React.FC<TimeProps> = ({
     weekdayFormat = 'dddd',

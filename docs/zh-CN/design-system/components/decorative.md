@@ -2,25 +2,23 @@
 
 承载海岛主题氛围的场景件：Time、Phone、Footer、Wallet 的精确取值
 
-## Footer（版权栏）
+## Footer
 
-版权栏：渲染 `© {year} {text}` —— 年份动态获取（当前年份），文案默认为 `All Rights Reserved.`。
+默认 tree 恢复 80px 树林装饰，底部对齐、cover 填充；sea 恢复本地海岸 SVG，两者均为装饰 div。type="copyright" 保留语义化版权栏，显式传入 text/year 且未指定类型时也使用版权栏。
 
 ```tsx
-<Footer />                  // © 2026 All Rights Reserved.
-<Footer text="Acme Ltd." /> // 自定义文案
-<Footer text="Acme" year={2020} />
-```
-
-```less
-.footer {
-    color: #807d75;
-    font-size: 12px;
-    padding: 16px 0;
-    text-align: center;
+export type FooterType = 'sea' | 'tree' | 'copyright';
+export interface FooterProps {
+    /** 经典海岸、树林，或版权栏 */
+    type?: FooterType;
+    /** 版权文案，默认 `All Rights Reserved.` */
+    text?: string;
+    /** 年份，默认取当前年份（动态获取） */
+    year?: number;
+    /** 自定义类名 */
+    className?: string;
+    /** 自定义样式 */
+    style?: React.CSSProperties;
 }
 ```
-
-- `year` 默认取当前年份（`new Date().getFullYear()`），传入 `year` 可覆盖；`text` 替换 `All Rights Reserved.`。
-- 样式完全可通过 `style` / `className` 自定义。
 

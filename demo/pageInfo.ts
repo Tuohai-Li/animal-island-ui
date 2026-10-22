@@ -1,5 +1,9 @@
 // 独立的轻量页面元信息，供 App 等场景静态导入，避免拉入整个 ComponentPage bundle
 export const PAGE_INFO: Record<string, { title: string; desc: string }> = {
+    classic: { title: '经典组件回归', desc: 'v2.3.0 + Phone、Wallet、WeddingInvitation，重新遇见小岛的老朋友。' },
+    phone: { title: 'Phone 小岛手机', desc: '经典九宫格手机，实时时钟、键盘操作和应用点击回调。' },
+    wallet: { title: 'Wallet 钱袋', desc: '经典钱袋，支持三种尺寸、千分位和自定义货币图标。' },
+    wedding: { title: 'WeddingInvitation 婚礼请柬', desc: '实时编辑婚礼请柬，切换抽奖券并保存为 PNG 图片。' },
     button: {
         title: 'Button 按钮',
         desc: '按钮组件 — 支持 primary / dashed / text / link 等类型，danger / ghost / loading / disabled 状态，icon 图标，block 块级，三种尺寸',

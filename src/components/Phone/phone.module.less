@@ -1,0 +1,262 @@
+.phoneContainer {
+    width: min(100%, 380px);
+    container-type: inline-size;
+    margin-inline: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.phone {
+    position: relative;
+    width: 100cqw;
+    height: 149.5256cqw;
+    background: #f8f4e8;
+    border-radius: 25.8065cqw;
+    overflow: hidden;
+}
+
+.screenContent {
+    flex: 1;
+    overflow: hidden;
+}
+
+.homeScreen {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 7.5901cqw;
+    background: #f8f4e8;
+    background-size: 100% 200%;
+    animation: grasswave 8s ease-in-out infinite;
+}
+
+@keyframes grasswave {
+    0%,
+    100% {
+        background-position: 0% 0%;
+    }
+
+    50% {
+        background-position: 0% 100%;
+    }
+}
+
+.dateDisplay {
+    text-align: center;
+    width: 100%;
+    padding: 0 13.2827cqw 5.8824cqw 13.2827cqw;
+    font-family: @font-family;
+}
+
+.dateDisplayHeader {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    font-size: 6.0721cqw;
+    color: #99957f;
+    font-weight: 800;
+    letter-spacing: 0.3795cqw;
+}
+
+.blink {
+    font-size: 6.0721cqw;
+    font-weight: 800;
+    color: #99957f;
+    vertical-align: text-bottom;
+    animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+    0%,
+    50% {
+        opacity: 1;
+    }
+
+    51%,
+    100% {
+        opacity: 0;
+    }
+}
+
+.dayText {
+    display: block;
+    font-size: 9.1082cqw;
+    font-weight: 800;
+    height: 10.6262cqw;
+    margin-top: 3.7951cqw;
+    color: #725c4e;
+    letter-spacing: 0.3795cqw;
+}
+
+.appsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6.0721cqw;
+    padding: 1.518cqw;
+    flex: 1;
+    align-content: center;
+    justify-content: center;
+}
+
+.appItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 23.3397cqw;
+    height: 23.3397cqw;
+    border-radius: 8.5389cqw;
+    position: relative;
+
+    &:hover .appIcon {
+        animation: iconBounce 0.3s ease-in-out forwards;
+    }
+
+    &:hover .appIconOffset {
+        animation: iconBounceOffset 0.3s ease-in-out forwards;
+    }
+}
+
+.appItemOffset {
+    overflow: hidden;
+}
+
+@keyframes iconBounce {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+
+    50% {
+        transform: scale(1.2) rotate(-5deg);
+    }
+
+    100% {
+        transform: scale(1.1) rotate(-4deg);
+    }
+}
+
+@keyframes iconBounceOffset {
+    0% {
+        transform: scale(1) rotate(0deg) translateY(2.8463cqw);
+    }
+
+    50% {
+        transform: scale(1.2) rotate(-5deg) translateY(2.8463cqw);
+    }
+
+    100% {
+        transform: scale(1.1) rotate(-4deg) translateY(2.8463cqw);
+    }
+}
+
+.appIcon {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 70% auto;
+}
+
+.appIconOffset {
+    transform: translateY(2.8463cqw);
+}
+
+.iconCamera {
+    background-image: url('../../assets/img/icons/icon-camera.svg');
+}
+
+.iconMiles {
+    background-image: url('../../assets/img/icons/icon-miles.svg');
+}
+
+.iconCritterpedia {
+    background-image: url('../../assets/img/icons/icon-critterpedia.svg');
+    width: 19.9241cqw;
+}
+
+.iconDiy {
+    background-image: url('../../assets/img/icons/icon-diy.svg');
+}
+
+.iconDesign {
+    background-image: url('../../assets/img/icons/icon-design.svg');
+}
+
+.iconMap {
+    background-image: url('../../assets/img/icons/icon-map.svg');
+    width: 17.0778cqw;
+}
+
+.iconVariant {
+    background-image: url('../../assets/img/icons/icon-variant.svg');
+    width: 15.1803cqw;
+}
+
+.iconHelicopter {
+    background-image: url('../../assets/img/icons/icon-helicopter.svg');
+}
+
+.iconChat {
+    background-image: url('../../assets/img/icons/icon-chat.svg');
+}
+
+.iconWifi {
+    display: inline-block;
+    width: 14.9905cqw;
+    height: 5.5028cqw;
+    background: url('../../assets/img/icons/wifi.svg') center / contain no-repeat;
+}
+
+.iconLocation {
+    display: inline-block;
+    width: 6.8311cqw;
+    height: 6.8311cqw;
+    background: url('../../assets/img/icons/location.svg') center / contain no-repeat;
+}
+
+.iconPage {
+    display: inline-block;
+    width: 12.334cqw;
+    height: 6.0721cqw;
+    background: url('../../assets/img/icons/page.svg') center / contain no-repeat;
+}
+
+.badge {
+    position: absolute;
+    top: 0cqw;
+    left: 0cqw;
+    width: 5.3131cqw;
+    height: 5.3131cqw;
+    border-radius: 50%;
+    background-color: #ff544a;
+    border: 0.9488cqw solid #f8f4e8;
+}
+
+.pageIndicator {
+    display: flex;
+    justify-content: center;
+    margin-top: 14.0417cqw;
+    align-items: center;
+}
+.appItem {
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    font: inherit;
+}
+.appItem:focus-visible {
+    outline: 3px solid var(--animal-warning-color, #f5c31c);
+    outline-offset: 4px;
+}
+.iconWifi,
+.iconLocation {
+    filter: brightness(0.7);
+}
+@media (prefers-reduced-motion: reduce) {
+    .phoneContainer * {
+        animation: none !important;
+    }
+}

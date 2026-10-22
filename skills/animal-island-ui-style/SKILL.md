@@ -12,7 +12,7 @@ description: >
 # animal-island-ui style
 
 animal-island-ui is a React + TypeScript component library with an original
-cozy island-style design — 40 components, two runtime dependencies (`naive-icons`
+cozy island-style design — 43 components, two runtime dependencies (`naive-icons`
 for icons, `dayjs` for dates), MIT License.
 
 Source & canonical design definition: https://github.com/guokaigdg/animal-island-ui
@@ -76,6 +76,7 @@ values, defaults — copied from source):
 | Data display | Table, CodeBlock, Tag, Badge, Pagination | [data-display.md](references/components/data-display.md) |
 | Calendar | Calendar | [calendar.md](references/components/calendar.md) |
 | Count-up score | CountUp | [CountUp.md](references/components/CountUp.md) |
+| Classic restoration | Phone, Wallet, WeddingInvitation | [classic.md](references/components/classic.md) |
 | Media | Image, Avatar, Carousel | [media.md](references/components/media.md) |
 | Decorative | Footer, Divider, Cursor, Typewriter, Background | [decorative.md](references/components/decorative.md) |
 

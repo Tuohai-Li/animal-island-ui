@@ -132,6 +132,19 @@ export type { ProgressProps, ProgressSize } from './components/Progress';
 export { Loading } from './components/Loading';
 export type { LoadingProps } from './components/Loading';
 
+export { Phone } from './components/Phone';
+export type { PhoneProps } from './components/Phone';
+
+export { Wallet } from './components/Wallet';
+export type { WalletProps, WalletSize } from './components/Wallet';
+
+export { WeddingInvitation, WeddingInvitationExportButton } from './components/WeddingInvitation';
+export type {
+    WeddingInvitationProps,
+    WeddingInvitationRef,
+    WeddingInvitationExportButtonProps,
+} from './components/WeddingInvitation';
+
 // ============================================
 // 新增组件
 // ============================================

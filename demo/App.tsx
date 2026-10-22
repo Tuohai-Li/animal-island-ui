@@ -53,6 +53,16 @@ interface MenuItem {
 //   主题  → 业务复合/主题专属 (Countdown)
 // ============================================
 const MENU_ITEMS: MenuItem[] = [
+    {
+        key: 'cat-classic',
+        label: '── 经典回归 ──',
+        children: [
+            { key: 'classic', label: '经典组件总览', isNew: true },
+            { key: 'phone', label: 'Phone 小岛手机' },
+            { key: 'wallet', label: 'Wallet 钱袋' },
+            { key: 'wedding', label: 'WeddingInvitation 请柬' },
+        ],
+    },
     // 隐藏：暂不展示，恢复时取消注释
     {
         key: 'cat-guide',

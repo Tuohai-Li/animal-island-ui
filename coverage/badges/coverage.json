@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "label": "coverage",
+  "message": "93.91%",
+  "color": "brightgreen",
+  "statements": "91.68",
+  "branches": "85.72",
+  "functions": "92.42",
+  "lines": "93.91",
+  "components": 43,
+  "tests": 828
+}

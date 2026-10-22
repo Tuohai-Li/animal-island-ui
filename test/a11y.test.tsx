@@ -44,6 +44,9 @@ import { Cursor } from '@/components/Cursor';
 import { Countdown } from '@/components/Countdown';
 import { CountUp } from '@/components/CountUp';
 import { Time } from '@/components/Time';
+import { Phone } from '@/components/Phone';
+import { Wallet } from '@/components/Wallet';
+import { WeddingInvitation } from '@/components/WeddingInvitation';
 import { Calendar } from '@/components/Calendar';
 import { DatePicker } from '@/components/DatePicker';
 import { Divider } from '@/components/Divider';
@@ -145,6 +148,20 @@ const flushRaf = () =>
 // ---------------------------------------------------------------------------
 
 describe('a11y smoke / 全组件 axe-core 自动检查', () => {
+    it('Phone (应用按钮支持可访问名称)', async () => {
+        const r = render(<Phone />);
+        await expectNoA11yViolations(containerOf(r), 'Phone');
+    });
+
+    it('Wallet (金额可读)', async () => {
+        const r = render(<Wallet value={24800} />);
+        await expectNoA11yViolations(containerOf(r), 'Wallet');
+    });
+
+    it('WeddingInvitation (请柬内容可读)', async () => {
+        const r = render(<WeddingInvitation />);
+        await expectNoA11yViolations(containerOf(r), 'WeddingInvitation');
+    });
     // -------- 交互触发器 --------
 
     it('Button', async () => {

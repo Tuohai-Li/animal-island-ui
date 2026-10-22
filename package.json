@@ -20,6 +20,7 @@
     "files": [
         "dist",
         "items.d.ts",
+        "CLASSIC-NOTICE.md",
         "README.md"
     ],
     "sideEffects": false,

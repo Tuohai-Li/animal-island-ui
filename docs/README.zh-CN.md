@@ -1,3 +1,5 @@
+> **经典组件恢复分支：** 在 v2.3.0 上补回 Phone、Wallet 和 WeddingInvitation。演示入口 `#/classic`，详见[来源与素材说明](../CLASSIC-NOTICE.md)。
+
 # Animal-Island-UI
 
 <br/>
@@ -18,7 +20,7 @@
     <a href="https://atomgit.com/guokaigdg/animal-island-ui"><img alt="AtomGit Star" src="https://atomgit.com/guokaigdg/animal-island-ui/star/badge.svg"></a>
     <br/>
     <a href="../coverage/badges/coverage.json"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/guokaigdg/animal-island-ui/main/coverage/badges/coverage.json&style=flat-square" alt="Coverage"></a>
-    <img src="https://img.shields.io/badge/components-40-blue?style=flat-square" alt="Components">
+    <img src="https://img.shields.io/badge/components-43-blue?style=flat-square" alt="Components">
     <img src="https://img.shields.io/badge/a11y-WAI--ARIA%20APG-brightgreen?style=flat-square" alt="Accessibility">
 </div>
 <br/>

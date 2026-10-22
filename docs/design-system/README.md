@@ -15,10 +15,13 @@ The core of the design language: **warm earth-tone palette + large-radius pill s
 
 ## Full export inventory
 
-40 components, all exported from `src/index.ts` (including the `FormItem` / `useForm` companion exports):
+43 components, all exported from `src/index.ts` (including the `FormItem` / `useForm` companion exports):
 
 | Component      | Responsibility                                                                                                                                                                                    | Interactive | Decorative / display-only |
 | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | ------------------------- |
+| `Phone` | Historical phone screen with keyboard-accessible app buttons | ✓ | |
+| `Wallet` | Historical pouch balance display, three sizes | | ✓ |
+| `WeddingInvitation` | Customizable historical invitation with PNG export | ✓ | |
 | `Avatar`       | Avatar / Avatar.Group: image, icon or text content, circle/square shapes, 3 sizes + numeric, `gap` auto-shrink, stacking with `+N` overflow collapse                                                                                                                                                       | ✓           |                           |
 | `Button`       | Button, 5 types × 3 sizes                                                                                                                                                                           | ✓           |                           |
 | `Input`        | Text input, 3 sizes + clear/prefix/suffix                                                                                                                                                           | ✓           |                           |
@@ -71,3 +74,5 @@ Runtime values: `Notification`, `notificationOpen`, `notificationDestroy`, `NOTI
 - [css-variables.md](./css-variables.md) — the complete `:root` variable template for re-implementing the style without the library.
 - [components/](./components/) — per-component pixel-level specs.
 - [demo-site.md](./demo-site.md) — layout specs for the demo and documentation site (not part of the shipped library).
+
+Restored component APIs: `PhoneProps`, `WalletProps/WalletSize`, `WeddingInvitationProps/WeddingInvitationRef/WeddingInvitationExportButtonProps`. See [classic.md](components/classic.md).
